@@ -19,7 +19,6 @@ export function arrayToTree(arr) {
 }
 
 export function updateTree(newTree, oldTree){
-	console.log("update tree", newTree, oldTree)
 	if (!oldTree) return newTree;
 
 	if(!newTree) return new RippleArray();

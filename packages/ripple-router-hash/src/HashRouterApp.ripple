@@ -22,7 +22,6 @@ export component LoadComponent({ $component }){
 	let $childTree = new RippleArray();
 	let $childComponentLoaded = null;
 	effect(() => {
-		console.log($component)
 		if(!$component || $component.id == "not-found") {
 			$loading = false;
 			return
@@ -42,7 +41,6 @@ export component LoadComponent({ $component }){
 			}
 		)
 	})
-	console.log($component.id)
 	if($loading) {
 		<div>{"Loading..."}</div>
 	}
@@ -108,7 +106,6 @@ export component HashRouterApp() {
 	effect(() => {
 		$newRoute == "loading";
 		$newRoute = findRoute($currentPath, routes);
-		console.log("new Route", $newRoute)
 	});
 
 	effect(() => {

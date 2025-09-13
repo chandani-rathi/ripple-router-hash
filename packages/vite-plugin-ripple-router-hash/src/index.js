@@ -61,7 +61,6 @@ export default function rippleRoutesPlugin(options = {}) {
         });
       }
     }
-    console.log(file, chain)
     return chain;
   }
   let routeCode = "";

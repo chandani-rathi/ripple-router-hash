@@ -4,7 +4,6 @@ import { Input } from '@/components/ui/input.ripple';
 import { Button } from '@/components/ui/button.ripple';
 
 export component Page() {
-	console.log("Default Page loaded")
 	let $searchQuery = '';
 
 	<div class=''><div class='border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-6 py-4'><div class='flex justify-between items-center'>
