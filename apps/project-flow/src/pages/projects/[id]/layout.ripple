@@ -1,0 +1,16 @@
+import { Link } from "@/components/Link.ripple";
+
+export component Layout(props) {
+    const params = props.params
+    <div class="my-4 ">
+        {" / "}
+        <Link $class="font-semibold hover:underline" $to={"/projects"}>{"Project"}</Link>
+        {" / "}
+        {params.id}
+    </div>
+    <div>
+        <div class='flex flex-col gap-2'>
+            <props.$children />
+        </div>
+    </div>
+}

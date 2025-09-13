@@ -1,0 +1,17 @@
+{
+  "name": "vite-plugin-ripple-router-hash",
+  "description": "Vite plugin for Ripple",
+  "license": "MIT",
+  "version": "1.0.0",
+  "type": "module",
+  "module": "src/index.js",
+  "main": "src/index.js",
+  "keywords": [],
+  "author": "",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "fast-glob": "^3.3.3"
+  }
+}

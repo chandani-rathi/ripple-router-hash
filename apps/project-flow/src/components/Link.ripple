@@ -1,0 +1,28 @@
+import { effect, untrack } from "ripple"
+
+export component Link({ $children, $to, $class }) {
+	async function handleClick(e) {
+		e.preventDefault();
+    if(!$to) return;
+		window.location.hash = '#' + $to;
+	}
+
+	<a $class={$class} $href={$to} onClick={handleClick}><$children /></a>
+
+}
+
+
+function getHashPath() {
+  return window.location.hash.replace(/^#/, "") || "/";
+}
+
+
+export function useRoute() {
+  let $currentRoute = getHashPath()
+  return {
+    $currentRoute,
+    navigateTo : (to) => {
+      window.location.hash = '#' + to;
+    }
+  }
+}

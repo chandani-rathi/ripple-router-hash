@@ -1,0 +1,56 @@
+import { Button } from "@/components/ui/button.ripple"
+import { useRoute } from "@/components/Link.ripple";
+import { untrack, effect } from "ripple";
+import { Search, Bell, User } from "@/components/icons";
+import { Input } from "@/components/ui/input.ripple";
+
+  const menuItems = [
+    { id: '', label: 'Dashboard', icon: "Home" },
+    { id: 'projects', label: 'Projects', icon: "FolderKanban" },
+    { id: 'tasks', label: 'Tasks', icon: "CheckSquare" },
+    { id: 'team', label: 'Team', icon: "Users" },
+    { id: 'calendar', label: 'Calendar', icon: "Calendar" },
+    { id: 'analytics', label: 'Analytics', icon: "PieChart" },
+    { id: 'settings', label: 'Settings', icon: "Settings" }
+  ];
+
+export component Layout(props) {
+    let  { $currentRoute, navigateTo } = useRoute();
+    let $menu = menuItems[0];
+    effect(() => {
+        $menu = menuItems.find(menu => $currentRoute === `/${menu.id}`)
+    })
+
+    <div class='min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50'>
+        <div class="flex">
+            <div class="w-64 border-r bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 min-h-screen">
+                <div class="p-6">
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        {"ProjectFlow" + Math.floor(Math.random() * 100)}
+                    </h1>
+                </div>
+                 <nav class="px-4">
+                    const navigate = (menu) => {
+                        navigateTo(`/${menu.id}`)
+                        $menu = menu;
+                    }
+                    for(let menu of menuItems) {
+                        const $isSelected = $currentRoute === `/${menu.id}` || $currentRoute.startsWith(`/${menu.id}/`)
+                        <Button
+                            $variant={$isSelected ? "default" : "ghost"}
+                            onClick={() => navigate(menu)}
+                            $class={`w-full justify-start gap-3 mb-2 ${
+                                $isSelected ? 'bg-gradient-to-r from-blue-500 to-purple-600' : ''
+                            }`}
+                        >
+                            <span>{menu.label}</span>
+                        </Button>
+                    }
+                </nav>
+            </div>
+            <div class='flex-1 max-h-full overflow-auto'>
+                <props.$children />
+            </div>
+        </div>
+    </div>
+}

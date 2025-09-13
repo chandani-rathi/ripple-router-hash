@@ -1,0 +1,25 @@
+import { Link } from "@/components/Link.ripple";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card.ripple"
+import { Users, Calendar } from "@/components/icons";
+import { RippleArray } from "ripple"
+import { projects } from "./projects";
+
+export default component Page() {
+	const $projects = new RippleArray(...projects);
+	<div class='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 py-4'>
+		for(const $project of $projects) {
+			<Link $to={`/projects/${$project.id}`}>
+				<Card $class="hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+					<CardHeader $class="pb-3">
+						<div class="flex justify-between items-start">
+							<CardTitle $class="text-lg">{$project.name}</CardTitle>
+						</div>
+						<CardDescription $class="mt-2">
+							{$project.description}
+						</CardDescription>
+					</CardHeader>
+				</Card>
+			</Link>
+		}
+	</div>
+}

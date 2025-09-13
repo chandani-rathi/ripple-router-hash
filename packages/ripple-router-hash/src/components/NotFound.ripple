@@ -1,0 +1,11 @@
+import { Link } from "@/components/Link.ripple";
+
+export component NotFound() {
+	<div class='min-h-screen bg-gradient-to-br from-gray-100 to-white p-8 flex flex-col items-center justify-center'>
+		<h1 class='text-4xl font-semibold'>{'404 - Not Found'}</h1>
+		<div class='mt-4 text-gray-600'>{'The page you are looking for does not exist.'}</div>
+		<Link $class="hover:underline" $to="/">
+			{'Go to Home Page'}
+		</Link>
+	</div>
+}

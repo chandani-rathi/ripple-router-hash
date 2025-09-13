@@ -1,0 +1,13 @@
+{
+	"name": "ripple-router-hash",
+	"version": "0.0.1",
+	"description": "",
+	"type": "module",
+	"scripts": {
+	},
+	"license": "MIT",
+	"workspaces" : [
+		"packages/*",
+		"apps/*"
+	]
+}

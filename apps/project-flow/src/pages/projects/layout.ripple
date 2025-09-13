@@ -1,0 +1,28 @@
+import { Button } from '@/components/ui/button.ripple';
+import { Filter, Plus } from '@/components/icons';
+
+export component Layout(props) {
+	<div class="flex-1 flex flex-col">
+        <div class='border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-6 py-4'>
+            <div class='flex justify-between items-center '>
+                <div>
+                    <h2 class='text-2xl font-bold'>{'Projects'}</h2>
+                    <p class='text-muted-foreground'>{'Manage and track your project progress'}</p>
+                </div>
+                <div class='flex gap-2'>
+                    <Button $variant='outline' size='sm'>
+                        <Filter class='w-4 h-4 mr-2' />
+                        {'Filter'}
+                    </Button>
+                    <Button>
+                        <Plus class='w-4 h-4 mr-2' />
+                        {'New Project'}
+                    </Button>
+                </div>
+            </div>
+        </div>
+        <div class="px-4">
+            <props.$children />
+        </div>
+    </div>
+}

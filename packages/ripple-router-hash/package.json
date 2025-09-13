@@ -1,0 +1,27 @@
+{
+  "name": "ripple-router-hash",
+  "version": "1.0.0",
+  "type": "module",
+  "module": "dist/ripple-router-hash.es.js",
+  "main": "dist/ripple-router-hash.es.js",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "build": "vite build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2",
+    "prettier-plugin-ripple": "0.2.36",
+    "ripple": "0.2.36",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.5",
+    "vite-plugin-ripple": "0.2.36"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

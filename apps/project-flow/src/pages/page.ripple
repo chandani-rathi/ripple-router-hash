@@ -1,0 +1,25 @@
+import { Link } from '@/components/Link.ripple';
+import { Search, Bell, User } from '@/components/icons';
+import { Input } from '@/components/ui/input.ripple';
+import { Button } from '@/components/ui/button.ripple';
+
+export component Page() {
+	console.log("Default Page loaded")
+	let $searchQuery = '';
+
+	<div class=''><div class='border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-6 py-4'><div class='flex justify-between items-center'>
+		<div>
+			<h1 class='text-2xl font-bold capitalize'>{'Dashboard'}</h1>
+			<p class='text-muted-foreground'>{'Manage your projects efficiently'}</p>
+		</div>
+
+		<div class='flex items-center gap-4'>
+			<div class='relative'>
+				<Search $class='w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground' />
+				<Input $type='text' $placeholder='Search...' $value={$searchQuery} onChange={e => $searchQuery = e.target.value} $class='pl-10 w-64' />
+			</div>
+			<Button $variant='ghost' $size='sm'><Bell $class='w-5 h-5' /></Button>
+			<Button $variant='ghost' $size='sm'><User $class='w-5 h-5' /></Button>
+		</div>
+	</div></div></div>
+}
