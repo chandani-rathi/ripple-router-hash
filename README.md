@@ -1,48 +1,70 @@
-# Ripple TailwindCss Basic Template
+# ripple-router-hash
 
-A minimal Ripple application template with TypeScript and Vite.
+A lightweight hash-based router library for [Ripple](https://github.com/trueadm/ripple) applications.
+## Overview
 
-## Getting Started
+`ripple-router-hash` provides client-side routing for Ripple apps using the URL hash (`#`). It enables navigation, route matching, and dynamic rendering of pages/components based on the hash path.
+## Features
+- Hash-based routing for SPA navigation
+- Dynamic route matching (including params)
+- Simple API for navigation and route definition
+- Designed for Ripple framework
 
-1. Install dependencies:
+## Installation
 
-   ```bash
-   npm install # or pnpm or yarn
-   ```
-2. Start the development server:
+```bash
+npm install ripple-router-hash vite-plugin-ripple-router-hash
+```
+## Usage
+### Step 1
+Import and use the vite plugin:
 
-   ```bash
-   npm run dev
-   ```
-3. Build for production:
+```ts
+import rippleRoutesPlugin from "vite-plugin-ripple-router-hash";
 
-   ```bash
-   npm run build
-   ```
+export default defineConfig({
 
-## Code Formatting
+   plugins: [ripple(), tailwindcss(), rippleRoutesPlugin({ pagesDir: "src/pages" })],
 
-This template includes Prettier with the Ripple plugin for consistent code formatting.
+}}
 
-### Available Commands
+```
 
-- `npm run format` - Format all files
-- `npm run format:check` - Check if files are formatted correctly
+### Step 2
+Import and use the router in your Ripple app:
 
-### Configuration
+```ts
+import { HashRouterApp } from 'ripple-router-hash';
 
-Prettier is configured in `.prettierrc` with the following settings:
+<HashRouterApp>
+   {/* Your routes/components here */}
+</HashRouterApp>
+```
+See the sample project in [`apps/simple-hash`](./apps/simple-hash) for a complete example, including route definitions and navigation.
 
-- Uses tabs for indentation
-- Single quotes for strings
-- 100 character line width
-- Includes the `prettier-plugin-ripple` for `.ripple` file formatting
+## Sample Project
 
-### VS Code Integration
+The [`apps/simple-hash`](./apps/simple-hash) folder contains a minimal Ripple app using `ripple-router-hash`. Explore its `src/` and `pages/` directories to see:
+- How to define routes
+- How to use the `Link` component for navigation
+- How to structure pages and layouts
 
-For the best development experience, install the [Prettier VS Code extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) and the [Ripple VS Code extension](https://marketplace.visualstudio.com/items?itemName=ripplejs.ripple-vscode-plugin).
+## Development
 
-## Learn More
+To develop or test changes locally:
+
+```bash
+npm install
+npm run build
+```
+## Formatting & Tooling
+
+- Prettier with Ripple plugin is included for `.ripple` file formatting
+- Recommended VS Code extensions:
+   - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+   - [Ripple](https://marketplace.visualstudio.com/items?itemName=ripplejs.ripple-vscode-plugin)
+
+## Resources
 
 - [Ripple Documentation](https://github.com/trueadm/ripple)
 - [Vite Documentation](https://vitejs.dev/)
