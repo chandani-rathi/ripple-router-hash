@@ -4,10 +4,19 @@
 	"description": "",
 	"type": "module",
 	"scripts": {
+		"watch:lib:hash": "npm run watch -w ripple-router-hash",
+		"watch:apps:hash": "npm run dev -w simple-hash",
+		"dev": "npx npm-run-all2 --parallel watch:**",
+		"test": "vitest run"
 	},
 	"license": "MIT",
-	"workspaces" : [
+	"workspaces": [
 		"packages/*",
 		"apps/*"
-	]
+	],
+	"devDependencies": {
+		"jsdom": "^27.0.0",
+		"vite-plugin-ripple": "^0.2.40",
+		"vitest": "^3.2.4"
+	}
 }

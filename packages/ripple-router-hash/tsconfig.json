@@ -14,5 +14,10 @@
 		"paths": {
 			"@/*": ["./src/*"]
 		}
-	}
+	},
+	"include": [
+		"./*.js",
+		"./src/",
+		"./tests/*/test.ripple",
+	]
 }

@@ -9,16 +9,18 @@
   },
   "scripts": {
     "build": "vite build",
+    "watch": "vite build --watch",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
   "devDependencies": {
     "prettier": "^3.6.2",
-    "prettier-plugin-ripple": "0.2.39",
-    "ripple": "0.2.39",
+    "prettier-plugin-ripple": "0.2.40",
+    "ripple": "0.2.40",
     "typescript": "^5.9.2",
     "vite": "^7.1.5",
-    "vite-plugin-ripple": "0.2.39"
+    "vite-plugin-ripple": "0.2.40",
+		"vitest": "^3.2.4"
   },
   "keywords": [],
   "author": "",
