@@ -11,29 +11,91 @@ export function createHashRouterApp({ target}) {
 
 
 function getComponent(module){
-	return  module.Layout || module.Page || module.default || null;
+	const mainComponent =  module.Layout || module.Page || module.default || null;
+	const loadingComponent = module.Loading;
+	const errorComponent = module.Error;
+	const loader = module.loader;
+	const metadata = module.metadata;
+	return {
+		mainComponent, loadingComponent, errorComponent, loader, metadata
+	}
+}
+
+function updateMetadata(metadata){
+	if(metadata) {
+		document.title = metadata.title
+	}
+	else{
+		document.title = store.originalTitle
+	}
+}
+
+const store = {
+	originalTitle: ""
+}
+
+function isPromiseLike(value) {
+  return value && typeof value.then === "function";
 }
 
 export component LoadComponent({ $component }){
 	let $loading = true;
 	let $routeComponent = (__anchor, props, __block) => {
-		NotFound(__anchor, props, __block)
+		Loading(__anchor, props, __block)
+	};
+	let $loadingComponent = (__anchor, props, __block) => {
+		Loading(__anchor, props, __block)
 	};
 	let $childTree = new RippleArray();
 	let $childComponentLoaded = null;
+
+	console.log("LoadComponent", $component)
+
 	effect(() => {
 		if(!$component || $component.id == "not-found") {
 			$loading = false;
 			return
 		};
-		$component.import().then(getComponent).then(
-			comp => {
+		$component.import()
+			.then(getComponent)
+			.then(module => {
+				updateMetadata(module.metadata);
+				if(module.loadingComponent) {
+					console.log("hash loading", $component.id)
+					$loadingComponent = (__anchor, props, __block) => {
+						module.loadingComponent(__anchor, {...props, ...($component.props || {})}, __block)
+					};
+				}
+				return module
+			})
+			.then((module) => {
+				return new Promise((resolve) => {
+					if(module.loader){
+						const data = typeof(module.loader) === "function" ? module.loader(): {};
+						if(isPromiseLike(data)) {
+							data.then(r => resolve({...module, data: r}))
+							
+						}
+						else{
+							resolve({...module, data})
+						}
+					}
+					else {
+						resolve({...module, data: {}})
+					}
+				})
+			})
+			.then(
+			({mainComponent, loadingComponent, errorComponent, data, metadata}) => {
 				$loading = false;
+				console.log("component loading..")
 				$routeComponent = (__anchor, props, __block) => {
-					comp(__anchor, {...props, ...($component.props || {})} , __block);
+					mainComponent(__anchor, {...props, ...($component.props || {}), data} , __block);
 				};
+								
 				$childTree = $component.children;
 				if($component.id.startsWith("layout:")) {
+					$loading = false;
 					$childComponentLoaded = setTimeout(() => {
 						console.warn("warning: make sure to user $children in layout component ", $component.id)
 					}, 1000)
@@ -42,12 +104,12 @@ export component LoadComponent({ $component }){
 		)
 	})
 	if($loading) {
-		<div>{"Loading..."}</div>
+		<$loadingComponent />
 	}
 	else if($component.id == "not-found") {
 		<NotFound />
 	}
-	else {
+	else if($routeComponent){
 		<$routeComponent>
 			component $children() {
 				clearTimeout($childComponentLoaded)
@@ -67,11 +129,10 @@ export component LoadComponent({ $component }){
 
 export component LoadRoute({ $route }) {
 	let $tree = new RippleArray();
-
 	effect(() => {
 		const comps = []
-		const { layouts, component} =  $route;
-		const props = {params: $route.params, path: $route.path}
+		const { layouts, component, params, path} =  $route;
+		const props = {params, path}
 		if(layouts?.length > 0) {
 			layouts.forEach(l => comps.push({ id: `layout:${l.id}`, import: l.import, props: props}))
 		}
@@ -101,14 +162,16 @@ export component LoadRoute({ $route }) {
 
 export component HashRouterApp() {
 	let $currentPath = untrack(() => getHashPath());
+	let $loading = true;
 	let $newRoute = "loading";
 
 	effect(() => {
-		$newRoute == "loading";
+		$loading = false;
 		$newRoute = findRoute($currentPath, routes);
 	});
 
 	effect(() => {
+		store.originalTitle = document.title;
 		const onPopState = () => {
 			$currentPath = getHashPath();
 		};
@@ -119,7 +182,7 @@ export component HashRouterApp() {
 	if (!$newRoute) {
 		<NotFound />
 	} 
-	else if($newRoute == "loading"){
+	else if($loading){
 		<Loading />
 	}
 	else {

@@ -18,3 +18,9 @@ export component Page({ $children }) {
 		</div>
 	</div>
 }
+
+
+export component Loading(props){
+	console.log(props)
+	<h1 class="animate-pulse flex-1 flex items-center justify-center text-3xl">{"Loading....."}</h1>
+}
