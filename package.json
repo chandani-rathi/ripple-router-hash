@@ -16,7 +16,7 @@
 	],
 	"devDependencies": {
 		"jsdom": "^27.0.0",
-		"vite-plugin-ripple": "^0.2.40",
+		"vite-plugin-ripple": "^0.2.41",
 		"vitest": "^3.2.4"
 	}
 }
