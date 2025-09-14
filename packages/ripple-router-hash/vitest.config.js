@@ -1,0 +1,13 @@
+import { mergeConfig, configDefaults, defineConfig } from 'vitest/config';
+import viteConfig from './vite.config'
+
+
+export default mergeConfig(viteConfig, defineConfig({
+	test: {
+		include: [
+			'tests/*.test.ripple',
+		],
+		environment: 'jsdom',
+		...configDefaults.test,
+	},
+}))
