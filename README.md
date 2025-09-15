@@ -49,6 +49,60 @@ The [`apps/simple-hash`](./apps/simple-hash) folder contains a minimal Ripple ap
 - How to use the `Link` component for navigation
 - How to structure pages and layouts
 
+## Page Component Structure
+
+Each route in `ripple-router-hash` can be backed by a Page Component file (e.g., `page.ripple`). These files can export:
+
+- `Page`: The main component rendered for the route.
+- `Error`: (Optional) Component shown if the loader throws or rejects.
+- `Loading`: (Optional) Component shown while data is loading.
+- `loader`: (Optional) Async function to fetch data before rendering the page. Receives route params and returns data passed to the page.
+
+### Example: Page Component with Loader
+
+```js
+// page.ripple
+export const loader = async ({ params }) => {
+   // Fetch data using params.id
+   const res = await fetch(`/api/projects/${params.id}`);
+   if (!res.ok) throw new Error('Not found');
+   return await res.json();
+};
+
+export component Page({ data }) => <div>Project Name: {data.name}</div>;
+
+export component Error({ error }) => <div>Error: {error.message}</div>;
+
+export component Loading() => <div>Loading...</div>;
+```
+
+## Parameterized Page Routes
+
+Routes can include parameters using square brackets, e.g. `[id]`. The value in the URL is available in the loader and page via `params`.
+
+### Example: Defining a Parameterized Route
+
+Folder structure:
+
+```
+pages/
+   projects/
+      [id]/
+         page.ripple
+```
+
+Navigating to `#/projects/123` will match the `[id]` route and pass `{ id: '123' }` to the loader and page components.
+
+### Usage in Loader and Page
+
+```js
+export const loader = async ({ params }) => {
+   // params.id will be '123' for #/projects/123
+};
+
+export component Page({ data, params }) => <div>ID: {params.id}</div>;
+```
+
 ## Development
 
 To develop or test changes locally:
