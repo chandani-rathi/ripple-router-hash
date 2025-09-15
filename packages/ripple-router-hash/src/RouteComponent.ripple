@@ -1,0 +1,176 @@
+import { effect, RippleArray } from 'ripple';
+import { getHashPath, arrayToTree, findRoute } from "@/lib/utils";
+import { NotFound } from "@/components/NotFound.ripple";
+import { Loading } from "@/components/Loading.ripple";
+import { Error } from "@/components/Error.ripple";
+import { RouteContext } from "./context";
+
+
+function getComponent(module){
+	const mainComponent =  module.Layout || module.Page || module.default || null;
+	const loadingComponent = module.Loading;
+	const errorComponent = module.Error;
+	const loader = module.loader;
+	const metadata = module.metadata;
+	return {
+		mainComponent, loadingComponent, errorComponent, loader, metadata
+	}
+}
+
+function updateMetadata(metadata, context){
+	if(metadata) {
+		document.title = metadata.title
+	}
+	else{
+		document.title = context.documentTitle
+	}
+}
+
+function isPromiseLike(value) {
+  return value && typeof value.then === "function";
+}
+
+export component DynamicDataComponent({ $component, $data, $children}: { $component, $data?, $children?}){
+	let $dynamicComponent = (__anchor, props, __block) => {
+		$component(__anchor, {...props, ...($data || {})}, __block)
+	};
+
+	<$dynamicComponent>
+		if($children){
+			<$children />
+		}
+	</$dynamicComponent>
+}
+
+
+export component RouteComponent({ $component }){
+	let $loading = true;
+	let $loadingComponent = null;
+
+	let $error = false;
+	let $errorComponent = null;
+
+	let $routeComponent = null;
+	let $childTree = new RippleArray();
+	let $childComponentLoaded = null;
+
+	let context = RouteContext.get(RouteContext);
+
+	let $data = {...$component.props};
+
+	effect(() => {
+		if(!$component || $component.id == "not-found") {
+			$loading = false;
+			return
+		};
+
+		try {
+			$component.import()
+				.then(getComponent)
+				.then(module => {
+					updateMetadata(module.metadata, context);
+					if(module.loadingComponent) {
+						console.log("page has loading component", $component.id);
+						$loadingComponent = module.loadingComponent;
+					}
+					if(module.errorComponent) {
+						console.log("page has error component", $component.id);
+						$errorComponent = module.errorComponent;
+					}
+					return module
+				})
+				.then((module) => {
+					return new Promise((resolve, reject) => {
+						if(module.loader){
+							const data = typeof(module.loader) === "function" ? module.loader(): {};
+							if(isPromiseLike(data)) {
+								data.then(r => resolve({...module, data: r})).catch(reject)
+							}
+							else{
+								resolve({...module, data})
+							}
+						}
+						else {
+							resolve({...module, data: {}})
+						}
+					})
+				})
+				.then(({mainComponent, data}) => {
+						$loading = false;
+						$data = {...($component.props || {}), data};
+						$routeComponent = mainComponent;
+						$childTree = $component.children;
+						if($component.id.startsWith("layout:")) {
+							$childComponentLoaded = setTimeout(() => {
+								console.warn("warning: make sure to user $children in layout component ", $component.id)
+							}, 1000)
+						}
+					})
+					.catch(e => {
+						console.error("Error occurred while loading route. Error Code: 1", $component.props);
+						console.error(e);
+						$error = true;
+					});
+		}
+		catch(e) {
+			console.error("Error occurred while loading route. Error Code: 2", $component.props);
+			console.error(e)
+		}
+	})
+
+	try {
+		if($loading) {
+			if($error) {
+				if($errorComponent) {
+					<DynamicDataComponent $component={$errorComponent} $data={$data}/>
+				}
+				else {
+					<Error />
+				}
+			}
+			else if($loadingComponent) {
+				<DynamicDataComponent $component={$loadingComponent} $data={$data}/>
+			}
+			else {
+				<Loading />
+			}
+		}
+		else if($component.id == "not-found") {
+			<NotFound />
+		}
+		else if($routeComponent){
+			<DynamicDataComponent $component={$routeComponent} $data={$data}>
+				component $children() {
+					clearTimeout($childComponentLoaded)
+					if($childTree.$length == 1) {
+						<RouteComponent $component={$childTree[0]} />
+					}
+					if($childTree.$length == 2) {
+						<RouteComponent $component={$childTree[1]} />
+					}
+					if($childTree.$length == 3) {
+						<RouteComponent $component={$childTree[2]} />
+					}
+				}
+			</DynamicDataComponent>
+		}
+	
+	}
+	catch(e) {
+		console.error("Error occurred while loading route. Error Code: 3", $component.props);
+		console.error(e)
+		if($errorComponent) {
+			try {
+				<DynamicDataComponent $component={$errorComponent} $data={$data}/>
+			}
+			catch(e) { 
+				console.error("Error occurred while loading route. Error Code: 4", $component.props);
+				console.error(e);
+				<Error />
+			}
+		}
+		else {
+			<Error />
+		}
+	}
+}

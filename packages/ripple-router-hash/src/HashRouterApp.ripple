@@ -1,8 +1,10 @@
-import { effect, untrack, mount, RippleArray } from 'ripple';
-import { getHashPath, arrayToTree, findRoute } from "@/lib/utils";
+import { effect, untrack, mount, createContext  } from 'ripple';
+import { getHashPath, findRoute } from "@/lib/utils";
 import { NotFound } from "@/components/NotFound.ripple";
 import { Loading } from "@/components/Loading.ripple";
 import routes from 'virtual:ripple-routes';
+import { Route } from "./Route.ripple";
+import { RouteContext } from "./context";
 
 export function createHashRouterApp({ target}) {
 	console.log("App Routes: ", routes);
@@ -10,168 +12,22 @@ export function createHashRouterApp({ target}) {
 }
 
 
-function getComponent(module){
-	const mainComponent =  module.Layout || module.Page || module.default || null;
-	const loadingComponent = module.Loading;
-	const errorComponent = module.Error;
-	const loader = module.loader;
-	const metadata = module.metadata;
-	return {
-		mainComponent, loadingComponent, errorComponent, loader, metadata
-	}
-}
-
-function updateMetadata(metadata){
-	if(metadata) {
-		document.title = metadata.title
-	}
-	else{
-		document.title = store.originalTitle
-	}
-}
-
-const store = {
-	originalTitle: ""
-}
-
-function isPromiseLike(value) {
-  return value && typeof value.then === "function";
-}
-
-export component LoadComponent({ $component }){
-	let $loading = true;
-	let $routeComponent = (__anchor, props, __block) => {
-		Loading(__anchor, props, __block)
-	};
-	let $loadingComponent = (__anchor, props, __block) => {
-		Loading(__anchor, props, __block)
-	};
-	let $childTree = new RippleArray();
-	let $childComponentLoaded = null;
-
-	console.log("LoadComponent", $component)
-
-	effect(() => {
-		if(!$component || $component.id == "not-found") {
-			$loading = false;
-			return
-		};
-		$component.import()
-			.then(getComponent)
-			.then(module => {
-				updateMetadata(module.metadata);
-				if(module.loadingComponent) {
-					console.log("hash loading", $component.id)
-					$loadingComponent = (__anchor, props, __block) => {
-						module.loadingComponent(__anchor, {...props, ...($component.props || {})}, __block)
-					};
-				}
-				return module
-			})
-			.then((module) => {
-				return new Promise((resolve) => {
-					if(module.loader){
-						const data = typeof(module.loader) === "function" ? module.loader(): {};
-						if(isPromiseLike(data)) {
-							data.then(r => resolve({...module, data: r}))
-							
-						}
-						else{
-							resolve({...module, data})
-						}
-					}
-					else {
-						resolve({...module, data: {}})
-					}
-				})
-			})
-			.then(
-			({mainComponent, loadingComponent, errorComponent, data, metadata}) => {
-				$loading = false;
-				console.log("component loading..")
-				$routeComponent = (__anchor, props, __block) => {
-					mainComponent(__anchor, {...props, ...($component.props || {}), data} , __block);
-				};
-								
-				$childTree = $component.children;
-				if($component.id.startsWith("layout:")) {
-					$loading = false;
-					$childComponentLoaded = setTimeout(() => {
-						console.warn("warning: make sure to user $children in layout component ", $component.id)
-					}, 1000)
-				}
-			}
-		)
-	})
-	if($loading) {
-		<$loadingComponent />
-	}
-	else if($component.id == "not-found") {
-		<NotFound />
-	}
-	else if($routeComponent){
-		<$routeComponent>
-			component $children() {
-				clearTimeout($childComponentLoaded)
-				if($childTree.$length == 1) {
-					<LoadComponent $component={$childTree[0]} />
-				}
-				if($childTree.$length == 2) {
-					<LoadComponent $component={$childTree[1]} />
-				}
-				if($childTree.$length == 3) {
-					<LoadComponent $component={$childTree[2]} />
-				}
-			}
-		</$routeComponent>
-	}
-}
-
-export component LoadRoute({ $route }) {
-	let $tree = new RippleArray();
-	effect(() => {
-		const comps = []
-		const { layouts, component, params, path} =  $route;
-		const props = {params, path}
-		if(layouts?.length > 0) {
-			layouts.forEach(l => comps.push({ id: `layout:${l.id}`, import: l.import, props: props}))
-		}
-		if($route.path && component) {
-			comps.push({id: `page:${$route.path}`, import: component, props: props});
-		}
-		else {
-			comps.push({id: `not-found`, import: null, props: props});
-		}
-		if(comps.length == 0) return;
-		const newTree = arrayToTree(comps);
-		$tree = newTree;
-	})
-
-	if ($tree?.$length == 0) {
-		<Loading />
-	}
-	
-	if ($tree == null) {
-		<NotFound />
-	} 
-	
-	for(let child of $tree) {
-		<LoadComponent $component={child} />
-	}
-}
-
 export component HashRouterApp() {
 	let $currentPath = untrack(() => getHashPath());
 	let $loading = true;
-	let $newRoute = "loading";
+	let $newRoute = null;
 
 	effect(() => {
 		$loading = false;
 		$newRoute = findRoute($currentPath, routes);
 	});
 
+	untrack(() => {
+		RouteContext.set({ documentTitle: document.title });
+	})
+
 	effect(() => {
-		store.originalTitle = document.title;
+		
 		const onPopState = () => {
 			$currentPath = getHashPath();
 		};
@@ -179,13 +35,14 @@ export component HashRouterApp() {
 
 		return () => window.removeEventListener('hashchange', onPopState);
 	});
-	if (!$newRoute) {
-		<NotFound />
-	} 
-	else if($loading){
+	
+	if($loading){
 		<Loading />
 	}
+	else if (!$newRoute) {
+		<NotFound />
+	} 
 	else {
-		<LoadRoute $route={$newRoute} />
+		<Route $route={$newRoute} />
 	}
 }

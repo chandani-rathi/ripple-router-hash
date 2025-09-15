@@ -6,16 +6,20 @@ export component Page({path, params, data }) {
 	</div>
 }
 
-
 export const loader = async () => {
 	const data = { list: [1,2,3]};
-	await new Promise((resolve) => setTimeout(resolve, 1000))
+	await new Promise((resolve) => setTimeout(resolve, 5000))
 	console.log("data loaded")
 	return data;
 }
 
-
 export component Loading(props){
-	console.log(props)
+	console.log("About Loading", props)
 	<h1 class="animate-pulse flex-1 flex items-center justify-center text-3xl">{"Loading....."}</h1>
+}
+
+
+export component Error(props){
+	console.log("About Error", props)
+	<h1 class="animate-bounce flex-1 flex items-center justify-center text-xl">{"About page error."}</h1>
 }

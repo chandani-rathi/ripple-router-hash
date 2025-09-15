@@ -6,7 +6,9 @@
 	"scripts": {
 		"watch:lib:hash": "npm run watch -w ripple-router-hash",
 		"watch:apps:hash": "npm run dev -w simple-hash",
+		"watch:apps:flow": "npm run dev -w project-flow",
 		"dev": "npx npm-run-all2 --parallel watch:**",
+		"dev2": "npx npm-run-all2 --parallel watch:lib:hash watch:apps:flow",
 		"test": "cd packages/ripple-router-hash && vitest run"
 	},
 	"license": "MIT",
