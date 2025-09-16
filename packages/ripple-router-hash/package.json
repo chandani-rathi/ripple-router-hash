@@ -1,6 +1,6 @@
 {
   "name": "ripple-router-hash",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "module": "dist/ripple-router-hash.es.js",
   "main": "dist/ripple-router-hash.es.js",
@@ -20,7 +20,7 @@
     "typescript": "^5.9.2",
     "vite": "^7.1.5",
     "vite-plugin-ripple": "0.2.43",
-		"vitest": "^3.2.4"
+    "vitest": "^3.2.4"
   },
   "keywords": [],
   "author": "",
