@@ -12,6 +12,9 @@ export default defineConfig({
 			'@': path.resolve(__dirname, './src'),
 		},
 	},
+	optimizeDeps: {
+		exclude: ['virtual:ripple-routes'], 
+	},
 	server: {
 		port: 3000,
 	},
