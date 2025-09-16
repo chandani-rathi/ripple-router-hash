@@ -11,7 +11,9 @@
     "build": "vite build",
     "watch": "vite build --watch",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "patch": "npm version patch",
+    "publish": "npm publish"
   },
   "devDependencies": {
     "prettier": "^3.6.2",

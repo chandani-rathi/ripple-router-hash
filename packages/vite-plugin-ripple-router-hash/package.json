@@ -8,6 +8,10 @@
   "main": "src/index.js",
   "keywords": [],
   "author": "",
+  "scripts": {
+    "patch" : "npm version patch",
+    "publish" : "npm publish"
+  },
   "engines": {
     "node": ">=20.0.0"
   },
