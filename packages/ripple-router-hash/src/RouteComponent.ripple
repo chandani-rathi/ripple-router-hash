@@ -26,7 +26,7 @@ function updateMetadata(metadata, context){
 	}
 }
 
-function isPromiseLike(value) {
+export function isPromiseLike(value) {
   return value && typeof value.then === "function";
 }
 
@@ -41,7 +41,6 @@ export component DynamicDataComponent({ $component, $data, $children}: { $compon
 		}
 	</$dynamicComponent>
 }
-
 
 export component RouteComponent({ $component }){
 	let $loading = true;

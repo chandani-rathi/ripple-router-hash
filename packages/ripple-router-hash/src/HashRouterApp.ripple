@@ -11,7 +11,6 @@ export function createHashRouterApp({ target}) {
 	mount(HashRouterApp, { target});
 }
 
-
 export component HashRouterApp() {
 	let $currentPath = untrack(() => getHashPath());
 	let $loading = true;
