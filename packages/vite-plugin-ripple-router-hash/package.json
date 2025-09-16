@@ -2,15 +2,15 @@
   "name": "vite-plugin-ripple-router-hash",
   "description": "Vite plugin for Ripple",
   "license": "MIT",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "module": "src/index.js",
   "main": "src/index.js",
   "keywords": [],
   "author": "",
   "scripts": {
-    "patch" : "npm version patch",
-    "publish" : "npm publish"
+    "patch": "npm version patch",
+    "publish": "npm publish"
   },
   "engines": {
     "node": ">=20.0.0"

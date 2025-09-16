@@ -1,6 +1,6 @@
 {
   "name": "ripple-router-hash",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "module": "dist/ripple-router-hash.es.js",
   "main": "dist/ripple-router-hash.es.js",
