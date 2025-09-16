@@ -14,7 +14,9 @@
 		"patch:hash": "cd packages/ripple-router-hash && npm run patch",
 		"patch:plugin": "cd packages/vite-plugin-ripple-router-hash && npm run patch",
 		"patch": "npx npm-run-all2 --parallel patch:**",
-		"publish": "cd packages/ripple-router-hash && vitest run publish"
+		"publish:hash": "cd packages/ripple-router-hash && npm run publish",
+		"publish:plugin": "cd packages/vite-plugin-ripple-router-hash && npm run publish",
+		"publish": "npx npm-run-all2 --parallel publish:**"
 	},
 	"license": "MIT",
 	"workspaces": [
