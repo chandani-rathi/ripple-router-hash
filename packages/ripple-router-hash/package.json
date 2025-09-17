@@ -12,6 +12,7 @@
     "watch": "vite build --watch",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+		"test": "vitest run",
     "patch": "npm version patch",
     "publish": "npm publish"
   },

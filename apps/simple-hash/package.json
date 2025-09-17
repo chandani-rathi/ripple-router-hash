@@ -11,7 +11,8 @@
 		"build": "vite build",
 		"serve": "vite preview",
 		"format": "prettier --write .",
-		"format:check": "prettier --check ."
+		"format:check": "prettier --check .",
+		"test": "vitest run"
 	},
 	"devDependencies": {
 		"@tailwindcss/vite": "^4.1.13",

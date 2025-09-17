@@ -1,0 +1,27 @@
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { mount } from 'ripple';
+
+describe('basic', () => {
+
+	let container;
+
+	function render(component) {
+		mount(component, {
+			target: container
+		});
+	}
+
+	beforeEach(() => {
+		container = document.createElement('div');
+		document.body.appendChild(container);
+	});
+
+	afterEach(() => {
+		document.body.removeChild(container);
+		container = null;
+	});
+
+	it('render static text', () => {
+		console.log("compiled")
+	});
+});
