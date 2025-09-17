@@ -1,7 +1,7 @@
 import { effect, untrack, mount, createContext  } from 'ripple';
 import { getHashPath, findRoute } from "@/lib/utils";
-import { NotFound } from "@/components/NotFound.ripple";
-import { Loading } from "@/components/Loading.ripple";
+import { NotFound } from "@/components/not-found.ripple";
+import { Loading } from "@/components/loading.ripple";
 import routes from 'virtual:ripple-routes';
 import { Route } from "./route.ripple";
 import { RouteContext } from "./context";

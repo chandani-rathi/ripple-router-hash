@@ -1,11 +1,11 @@
-export * from "./HashRouterApp.ripple";
+export * from "./router-app.ripple";
 export * from "./route.ripple";
-export * from "./routeComponent.ripple";
+export * from "./route-component.ripple";
 
-export * from "@/components/Link.ripple";
-export * from "@/components/NotFound.ripple";
-export * from "@/components/Loading.ripple";
-export * from "@/components/Error.ripple";
+export * from "@/components/link.ripple";
+export * from "@/components/not-found.ripple";
+export * from "@/components/loading.ripple";
+export * from "@/components/error.ripple";
 
 
 export * from "./context";

@@ -7,7 +7,7 @@
 		"watch:lib:hash": "pnpm --filter ripple-router-hash run watch",
 		"watch:apps:hash": "pnpm --filter simple-hash run dev",
 		"watch:apps:flow": "pnpm --filter project-flow run dev",
-		"dev": "npx npm-run-all2 --parallel watch:**",
+		"dev": "npx npm-run-all2 --parallel watch:lib:hash watch:apps:hash",
 		"dev2": "npx npm-run-all2 --parallel watch:lib:hash watch:apps:flow",
 		"test:apps:sample-hash": "pnpm --filter simple-hash run test",
 		"test:hash": "pnpm --filter ripple-router-hash run test",

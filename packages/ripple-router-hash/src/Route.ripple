@@ -1,7 +1,7 @@
 import { effect, RippleArray } from 'ripple';
 import { arrayToTree } from "@/lib/utils";
-import { NotFound } from "@/components/NotFound.ripple";
-import { Loading } from "@/components/Loading.ripple";
+import { NotFound } from "@/components/not-found.ripple";
+import { Loading } from "@/components/loading.ripple";
 import { RouteComponent } from "./route-component.ripple"
 
 export component Route({ $route }: {

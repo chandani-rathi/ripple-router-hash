@@ -1,8 +1,8 @@
 import { effect, RippleArray } from 'ripple';
 import { getHashPath, arrayToTree, findRoute } from "@/lib/utils";
-import { NotFound } from "@/components/NotFound.ripple";
-import { Loading } from "@/components/Loading.ripple";
-import { Error } from "@/components/Error.ripple";
+import { NotFound } from "@/components/not-found.ripple";
+import { Loading } from "@/components/loading.ripple";
+import { Error } from "@/components/error.ripple";
 import { RouteContext } from "./context";
 
 
