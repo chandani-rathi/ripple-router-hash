@@ -2,18 +2,22 @@ import { effect, RippleArray } from 'ripple';
 import { arrayToTree } from "@/lib/utils";
 import { NotFound } from "@/components/NotFound.ripple";
 import { Loading } from "@/components/Loading.ripple";
-import { RouteComponent } from "./RouteComponent.ripple"
+import { RouteComponent } from "./route-component.ripple"
 
 export component Route({ $route }: {
-	$route: { 
-		layouts: any[],
-		component: [],
-		params: {[key: string]: string},
+	$route?: { 
+		layouts?: any[],
+		component: Function,
+		params?: {[key: string]: string},
 		path: string
 	}}) {
 	let $tree = new RippleArray();
 
 	effect(() => {
+		if(!$route || typeof $route.path == "undefined" ) {
+			$tree = null;
+			return
+		};
 		const comps = []
 		const { layouts, component, params, path} =  $route;
 		const props = {params, path}
@@ -26,7 +30,7 @@ export component Route({ $route }: {
 		else {
 			comps.push({id: `not-found`, import: null, props: props});
 		}
-		if(comps.length == 0) return;
+		
 		const newTree = arrayToTree(comps);
 		$tree = newTree;
 	})

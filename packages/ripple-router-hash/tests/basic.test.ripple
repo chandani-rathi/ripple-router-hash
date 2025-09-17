@@ -23,5 +23,11 @@ describe('basic', () => {
 
 	it('render static text', () => {
 		console.log("compiled")
+		component Basic() {
+			<div>{'Hello World'}</div>
+		}
+
+		render(Basic);
+		expect(container).toMatchSnapshot();
 	});
 });

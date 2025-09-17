@@ -7,6 +7,7 @@ import { RouteContext } from "./context";
 
 
 function getComponent(module){
+	console.log("getComponent", module)
 	const mainComponent =  module.Layout || module.Page || module.default || null;
 	const loadingComponent = module.Loading;
 	const errorComponent = module.Error;
@@ -21,7 +22,7 @@ function updateMetadata(metadata, context){
 	if(metadata) {
 		document.title = metadata.title
 	}
-	else{
+	else if(context?.documentTitle){
 		document.title = context.documentTitle
 	}
 }
@@ -95,6 +96,7 @@ export component RouteComponent({ $component }){
 					})
 				})
 				.then(({mainComponent, data}) => {
+					console.log("mainComponent", mainComponent)
 						$loading = false;
 						$data = {...($component.props || {}), data};
 						$routeComponent = mainComponent;

@@ -1,0 +1,165 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`route > render route with component in $route 1`] = `
+<div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <div
+    class="min-h-screen bg-gradient-to-br from-gray-100 to-white p-8 flex flex-col items-center justify-start"
+  >
+    Loading...
+  </div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  
+</div>
+`;
+
+exports[`route > render route with empty $route 1`] = `
+<div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <div
+    class="min-h-screen bg-gradient-to-br from-gray-100 to-white p-8 flex flex-col items-center justify-center"
+  >
+    <h1
+      class="text-4xl font-semibold"
+    >
+      404 - Not Found
+    </h1>
+    <div
+      class="mt-4 text-gray-600"
+    >
+      The page you are looking for does not exist.
+    </div>
+    <a
+      class="hover:underline"
+      href="/"
+    >
+      Go to Home Page
+      <!---->
+    </a>
+    <!---->
+  </div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  
+</div>
+`;
+
+exports[`route > render route with no props 1`] = `
+<div>
+  <!---->
+  <!---->
+  <!---->
+  <div
+    class="min-h-screen bg-gradient-to-br from-gray-100 to-white p-8 flex flex-col items-center justify-start"
+  >
+    Loading...
+  </div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  
+</div>
+`;
+
+exports[`route > render route with no props 2`] = `
+<div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <div
+    class="min-h-screen bg-gradient-to-br from-gray-100 to-white p-8 flex flex-col items-center justify-center"
+  >
+    <h1
+      class="text-4xl font-semibold"
+    >
+      404 - Not Found
+    </h1>
+    <div
+      class="mt-4 text-gray-600"
+    >
+      The page you are looking for does not exist.
+    </div>
+    <a
+      class="hover:underline"
+      href="/"
+    >
+      Go to Home Page
+      <!---->
+    </a>
+    <!---->
+  </div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  
+</div>
+`;
+
+exports[`route > render route with null component in $route 1`] = `
+<div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <div
+    class="min-h-screen bg-gradient-to-br from-gray-100 to-white p-8 flex flex-col items-center justify-center"
+  >
+    <h1
+      class="text-4xl font-semibold"
+    >
+      404 - Not Found
+    </h1>
+    <div
+      class="mt-4 text-gray-600"
+    >
+      The page you are looking for does not exist.
+    </div>
+    <a
+      class="hover:underline"
+      href="/"
+    >
+      Go to Home Page
+      <!---->
+    </a>
+    <!---->
+  </div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  
+</div>
+`;

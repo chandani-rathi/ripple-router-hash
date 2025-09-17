@@ -1,0 +1,93 @@
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { mount, flushSync} from 'ripple';
+import { Route } from "@/route.ripple";
+
+
+
+describe('route', () => {
+
+	let container;
+
+	function render(component) {
+		mount(component, {
+			target: container
+		});
+	}
+
+	beforeEach(() => {
+		container = document.createElement('div');
+		document.body.appendChild(container);
+	});
+
+	afterEach(() => {
+		document.body.removeChild(container);
+		container = null;
+	});
+
+	it('render route with no props', async () => {
+		console.log("compiled")
+		component NoPropRoute() {
+			<Route />
+		}
+
+		render(NoPropRoute);
+        expect(container).toMatchSnapshot();
+
+        flushSync(() => {});
+		expect(container).toMatchSnapshot();
+
+	});
+
+    it('render route with empty $route', async () => {
+		console.log("compiled")
+		component EmptyRoute() {
+			<Route $route={{}}/>
+		}
+
+		render(EmptyRoute);
+        flushSync(() => {});
+		expect(container).toMatchSnapshot();
+
+	});
+
+    
+    it('render route with null component in $route', async () => {
+		console.log("compiled")
+		component NullComponentRoute() {
+			<Route $route={{ path: "/", component: null}}/>
+		}
+
+		render(NullComponentRoute);
+        flushSync(() => {});
+		expect(container).toMatchSnapshot();
+
+	});
+
+     it('render route with component in $route', async () => {
+		console.log("compiled");
+        component Page(){
+            <div>{"Hello Route"}</div>
+        }
+
+		component PageRoute() {
+			<Route $route={{ path: "/", component: () => Promise.resolve({Page})}}/>
+		}
+
+        
+        vi.mock('./route-component.ripple', () => ({
+            RouteComponent: Page,
+        }));
+
+		render(PageRoute);
+        flushSync(() => {});
+        flushSync(() => {});
+        flushSync(() => {});
+        flushSync(() => {});
+        flushSync(() => {});
+        flushSync(() => {});
+        flushSync(() => {});
+        flushSync(() => {});
+		expect(container).toMatchSnapshot();
+
+	});
+});

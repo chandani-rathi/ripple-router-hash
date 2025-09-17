@@ -3,7 +3,7 @@ import { getHashPath, findRoute } from "@/lib/utils";
 import { NotFound } from "@/components/NotFound.ripple";
 import { Loading } from "@/components/Loading.ripple";
 import routes from 'virtual:ripple-routes';
-import { Route } from "./Route.ripple";
+import { Route } from "./route.ripple";
 import { RouteContext } from "./context";
 
 export function createHashRouterApp({ target}) {
