@@ -11,6 +11,9 @@
 		"jsxImportSource": "ripple",
 		"noEmit": true,
 		"isolatedModules": true,
+		"declaration": true,
+    	"declarationMap": true,
+    	"emitDeclarationOnly": false,
 		"paths": {
 			"@/*": ["./src/*"]
 		}

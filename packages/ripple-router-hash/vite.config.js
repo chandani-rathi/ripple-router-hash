@@ -1,9 +1,18 @@
 import { defineConfig } from 'vite';
 import { ripple } from 'vite-plugin-ripple';
 import path from 'path';
+import dtsPlugin from 'vite-plugin-dts';
 
 export default defineConfig({
-	plugins: [ripple({})],
+	plugins: [
+		ripple(),
+		dtsPlugin({
+			entryRoot: 'src',
+			outputDir: 'dist',
+			insertTypesEntry: true,
+			copyDtsFiles: true,
+		}),
+	],
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, './src'),
@@ -14,9 +23,9 @@ export default defineConfig({
 		manifest: false,
 		minify: false,
 		lib: {
-			entry: "src/index.ts",
+			entry: 'src/index.ts',
 			fileName: (format) => `ripple-router-hash.${format}.js`,
-			formats: ['es'], 
+			formats: ['es'],
 		},
 		rollupOptions: {
 			input: 'src/index.ts',
@@ -26,6 +35,7 @@ export default defineConfig({
 				exports: 'named',
 			},
 			external: ['virtual:ripple-routes', 'ripple', 'ripple/internal/client'],
+			plugins: [],
 		},
 	},
 });

@@ -3,16 +3,18 @@
   "version": "0.0.3",
   "type": "module",
   "module": "dist/ripple-router-hash.es.js",
-  "main": "dist/ripple-router-hash.es.js",
+  "main": "dist/ripple-router-hash.cjs.js",
+  "types": "dist/index.d.ts",
   "engines": {
     "node": ">=20.0.0"
   },
   "scripts": {
     "build": "vite build",
     "watch": "vite build --watch",
+    "dts" : "vite build -c vite.config.dts.js",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-		"test": "vitest run",
+    "test": "vitest run",
     "patch": "npm version patch",
     "publish": "npm publish"
   },
@@ -22,6 +24,7 @@
     "ripple": "0.2.44",
     "typescript": "^5.9.2",
     "vite": "^7.1.5",
+    "vite-plugin-dts": "^4.5.4",
     "vite-plugin-ripple": "0.2.44",
     "vitest": "^3.2.4"
   },
