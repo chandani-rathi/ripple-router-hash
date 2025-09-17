@@ -4,12 +4,12 @@
 	"description": "",
 	"type": "module",
 	"scripts": {
-		"watch:lib:hash": "npm run watch -w ripple-router-hash",
-		"watch:apps:hash": "npm run dev -w simple-hash",
-		"watch:apps:flow": "npm run dev -w project-flow",
+		"watch:lib:hash": "pnpm --filter ripple-router-hash run watch",
+		"watch:apps:hash": "pnpm --filter simple-hash run dev",
+		"watch:apps:flow": "pnpm --filter project-flow run dev",
 		"dev": "npx npm-run-all2 --parallel watch:**",
 		"dev2": "npx npm-run-all2 --parallel watch:lib:hash watch:apps:flow",
-		"test": "cd packages/ripple-router-hash && vitest run",
+		"test": "cd apps/simple-hash && vitest run",
 		"build" : "npm run build -w ripple-router-hash",
 		"patch:hash": "cd packages/ripple-router-hash && npm run patch",
 		"patch:plugin": "cd packages/vite-plugin-ripple-router-hash && npm run patch",
@@ -19,10 +19,6 @@
 		"publish": "npx npm-run-all2 --parallel publish:**"
 	},
 	"license": "MIT",
-	"workspaces": [
-		"packages/*",
-		"apps/*"
-	],
 	"devDependencies": {
 		"jsdom": "^27.0.0",
 		"vite-plugin-ripple": "^0.2.43",
