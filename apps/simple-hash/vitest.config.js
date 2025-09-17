@@ -1,5 +1,4 @@
-import { mergeConfig, configDefaults, defineConfig } from 'vitest/config';
-import viteConfig from './vite.config';
+import { configDefaults, defineConfig } from 'vitest/config';
 import { ripple } from 'vite-plugin-ripple';
 import path from 'node:path';
 
@@ -12,7 +11,10 @@ export default defineConfig({
 		extensions: ["js"]
 	},
 	test: {
-		include: ['tests/*.test.ripple'],
+		include: ['tests/*.test.ts','tests/*.test.ripple'],
+		deps: {
+			inline: ['ripple'],
+		},
 		environment: 'jsdom',
 		...configDefaults.test,
 	},
