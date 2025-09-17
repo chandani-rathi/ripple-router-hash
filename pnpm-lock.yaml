@@ -18,6 +18,40 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(jiti@2.5.1)(jsdom@27.0.0(postcss@8.5.6))(lightningcss@1.30.1)
 
+  apps/file-wise-routes:
+    dependencies:
+      ripple:
+        specifier: 0.2.45
+        version: 0.2.45
+    devDependencies:
+      '@tailwindcss/vite':
+        specifier: ^4.1.13
+        version: 4.1.13(vite@7.1.5(jiti@2.5.1)(lightningcss@1.30.1))
+      prettier:
+        specifier: ^3.6.2
+        version: 3.6.2
+      prettier-plugin-ripple:
+        specifier: 0.2.45
+        version: 0.2.45(prettier@3.6.2)
+      ripple-router-hash:
+        specifier: 0.0.3
+        version: 0.0.3
+      tailwindcss:
+        specifier: ^4.1.13
+        version: 4.1.13
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.2
+      vite:
+        specifier: ^7.1.5
+        version: 7.1.5(jiti@2.5.1)(lightningcss@1.30.1)
+      vite-plugin-ripple:
+        specifier: 0.2.45
+        version: 0.2.45
+      vite-plugin-ripple-router-hash:
+        specifier: 0.0.3
+        version: 0.0.3
+
   apps/project-flow:
     dependencies:
       class-variance-authority:
@@ -944,6 +978,11 @@ packages:
     peerDependencies:
       prettier: '>=2.0.0'
 
+  prettier-plugin-ripple@0.2.45:
+    resolution: {integrity: sha512-xl10aCMS3wu5OlJqEf4YMV2qck2WtLE7eBIPDuRpErnA2sUjmG8ajJbzS7SgbDG2GRk29Xa7K1n+xjbZllLTXA==}
+    peerDependencies:
+      prettier: '>=2.0.0'
+
   prettier@3.6.2:
     resolution: {integrity: sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ==}
     engines: {node: '>=14'}
@@ -974,6 +1013,9 @@ packages:
 
   ripple@0.2.44:
     resolution: {integrity: sha512-TmubLjMWtt/NpBB3c+E1GQJvISD4+iCu9I22RrY+NaE7SqVlcKv9RmX6X6TCHTzf53N0E1TZBALX2en+68SJHg==}
+
+  ripple@0.2.45:
+    resolution: {integrity: sha512-Ot8lkW9y5JdAn61pNsuXTFVQGVwCURbC5LSOgyXRTRi/+NzhTBu1f5+2jTiaO8RMuPTM/bRVgwVVYr8pZ1yWvw==}
 
   rollup@4.50.2:
     resolution: {integrity: sha512-BgLRGy7tNS9H66aIMASq1qSYbAAJV6Z6WR4QYTvj5FgF15rZ/ympT1uixHXwzbZUBDbkvqUI1KR0fH1FhMaQ9w==}
@@ -1086,6 +1128,9 @@ packages:
 
   vite-plugin-ripple@0.2.44:
     resolution: {integrity: sha512-+iig3F+n3X/xAjKyNeejMctCT9xR6B3K88lPxcYZ6LnNseRmuWCo/2o+/HsniXZ715xnmobZsU5+5H9iPWEbhg==}
+
+  vite-plugin-ripple@0.2.45:
+    resolution: {integrity: sha512-IVTSeVxvIVkIfebAaT+x5PQtP0KGI+FdggI+6iQKA9AuAHlQ+RwjJWll5Vj8I0hxD8sJaXk7CM/2z/sEoqCbkQ==}
 
   vite@7.1.5:
     resolution: {integrity: sha512-4cKBO9wR75r0BeIWWWId9XK9Lj6La5X846Zw9dFfzMRw38IlTk2iCcUt6hsyiDRcPidc55ZParFYDXi0nXOeLQ==}
@@ -1861,6 +1906,10 @@ snapshots:
     dependencies:
       prettier: 3.6.2
 
+  prettier-plugin-ripple@0.2.45(prettier@3.6.2):
+    dependencies:
+      prettier: 3.6.2
+
   prettier@3.6.2: {}
 
   punycode@2.3.1: {}
@@ -1876,6 +1925,17 @@ snapshots:
   ripple-router-hash@0.0.3: {}
 
   ripple@0.2.44:
+    dependencies:
+      '@jridgewell/sourcemap-codec': 1.5.5
+      acorn: 8.15.0
+      acorn-typescript: 1.4.13(acorn@8.15.0)
+      esrap: 2.1.0
+      is-reference: 3.0.3
+      magic-string: 0.30.19
+      muggle-string: 0.4.1
+      zimmerframe: 1.1.4
+
+  ripple@0.2.45:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
       acorn: 8.15.0
@@ -2017,6 +2077,8 @@ snapshots:
       fast-glob: 3.3.3
 
   vite-plugin-ripple@0.2.44: {}
+
+  vite-plugin-ripple@0.2.45: {}
 
   vite@7.1.5(jiti@2.5.1)(lightningcss@1.30.1):
     dependencies:

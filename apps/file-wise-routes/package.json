@@ -1,0 +1,32 @@
+{
+	"name": "file-wise-routes",
+	"version": "0.2.39",
+	"description": "",
+	"type": "module",
+	"engines": {
+		"node": ">=20.0.0"
+	},
+	"scripts": {
+		"start": "vite",
+		"dev": "vite",
+		"build": "vite build",
+		"serve": "vite preview",
+		"format": "prettier --write .",
+		"format:check": "prettier --check ."
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"@tailwindcss/vite": "^4.1.13",
+		"prettier": "^3.6.2",
+		"prettier-plugin-ripple": "0.2.45",
+		"ripple-router-hash": "0.0.3",
+		"tailwindcss": "^4.1.13",
+		"typescript": "^5.9.2",
+		"vite": "^7.1.5",
+		"vite-plugin-ripple": "0.2.45",
+		"vite-plugin-ripple-router-hash": "0.0.3"
+	},
+	"dependencies": {
+		"ripple": "0.2.45"
+	}
+}

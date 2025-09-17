@@ -1,0 +1,6 @@
+export component App() {
+	<div class="min-h-screen bg-gradient-to-br from-gray-100 to-white p-8 flex flex-col items-center justify-center">
+		<h1 class="text-4xl font-semibold animate-bounce">{"Hello, Ripple!"}</h1>
+		<div class="mt-4 text-gray-600">{"This is a sample Ripple application."}</div>
+	</div>
+}
