@@ -18,11 +18,11 @@
   },
   "devDependencies": {
     "prettier": "^3.6.2",
-    "prettier-plugin-ripple": "0.2.43",
-    "ripple": "0.2.43",
+    "prettier-plugin-ripple": "0.2.44",
+    "ripple": "0.2.44",
     "typescript": "^5.9.2",
     "vite": "^7.1.5",
-    "vite-plugin-ripple": "0.2.43",
+    "vite-plugin-ripple": "0.2.44",
     "vitest": "^3.2.4"
   },
   "keywords": [],

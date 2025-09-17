@@ -21,15 +21,15 @@ export component Layout(props) {
         $menu = menuItems.find(menu => $currentRoute === `/${menu.id}`)
     })
 
-    <div class='min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50'>
-        <div class="flex">
-            <div class="w-64 border-r bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 min-h-screen">
-                <div class="p-6">
+    <div class='h-screen overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50'>
+        <div class="flex flex-col md:flex-row h-full">
+            <div class=" md:w-64 transition-all flex md:block border-r bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                <div class="flex items-center flex-row md:flex-col p-6">
                     <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                         {"ProjectFlow"}
                     </h1>
                 </div>
-                 <nav class="px-4">
+                 <nav class="px-4 flex-1 overflow-auto flex items-center flex-row md:flex-col">
                     const navigate = (menu) => {
                         navigateTo(`/${menu.id}`)
                         $menu = menu;
@@ -39,7 +39,7 @@ export component Layout(props) {
                         <Button
                             $variant={$isSelected ? "default" : "ghost"}
                             onClick={() => navigate(menu)}
-                            $class={`w-full justify-start gap-3 mb-2 ${
+                            $class={`w-auto md:w-full justify-start gap-3 mb-2 ${
                                 $isSelected ? 'bg-gradient-to-r from-blue-500 to-purple-600' : ''
                             }`}
                         >
@@ -48,7 +48,7 @@ export component Layout(props) {
                     }
                 </nav>
             </div>
-            <div class='flex-1 max-h-full overflow-auto'>
+            <div class='flex-1 flex flex-col h-full overflow-hidden'>
                 <props.$children />
             </div>
         </div>

@@ -1,8 +1,5 @@
-
-
-export component Page({ }) {
-
-    const $days = [
+import { RippleArray, RippleMap } from "ripple";
+const DAYS = [
     "",
     "Sun",
     "Mon",
@@ -11,9 +8,9 @@ export component Page({ }) {
     "Thu",
     "Fri",
     "Sat",
-]
+];
 
-const $colClasses = {
+const DAYS_CLASSES = {
     "" : "col-start-1",
     "Sun" : "col-start-2",
     "Mon" : "col-start-3",
@@ -24,50 +21,72 @@ const $colClasses = {
     "Sat" : "col-start-8",
 }
 
-const $times = {
-    "5 AM" : "row-start-2",
-    "6 AM" : "row-start-3",
-    "7 AM" : "row-start-4",
-    "8 AM" : "row-start-5",
-    "9 AM" : "row-start-6",
-    "10 AM" : "row-start-7",
-    "11 AM" : "row-start-8",
-    "12 AM" : "row-start-9",
-    "1 PM" : "row-start-10",
-    "2 PM" : "row-start-11",
-    "3 PM" : "row-start-12",
-    "4 PM" : "row-start-13",
-    "5 PM" : "row-start-14",
-    "6 PM" : "row-start-15",
-    "7 PM" : "row-start-16",
-    "8 PM" : "row-start-17",
-    "9 PM" : "row-start-18"
+const TIME_SERIES = [
+    "0 AM",
+    "1 AM",
+    "2 AM",
+    "3 AM",
+    "4 AM",
+    "5 AM",
+    "6 AM",
+    "7 AM",
+    "8 AM",
+    "9 AM",
+    "10 AM",
+    "11 AM",
+    "12 AM",
+    "1 PM",
+    "2 PM",
+    "3 PM",
+    "4 PM",
+    "5 PM",
+    "6 PM",
+    "7 PM",
+    "8 PM",
+    "9 PM",
+    "10 PM",
+    "11 PM",
+]
+
+const TIME_CLASSES = {
+    "1" : "row-start-2",
+    "2" : "row-start-3",
+    "3" : "row-start-4",
+    "4" : "row-start-5",
+    "5" : "row-start-6",
+    "6" : "row-start-7",
+    "7" : "row-start-8",
+    "8" : "row-start-9",
+    "9" : "row-start-10",
+    "10" : "row-start-11",
+    "11" : "row-start-12",
+    "12" : "row-start-13",
+    "13" : "row-start-14",
+    "14" : "row-start-15",
+    "15" : "row-start-16",
+    "16" : "row-start-17",
+    "17" : "row-start-18",
+    "18" : "row-start-20",
+    "19" : "row-start-21",
+    "20" : "row-start-22",
+    "21" : "row-start-23",
+    "23" : "row-start-24",
+    "24" : "row-start-25",
 }
 
-const getTimeBlock = (start: string, end: string) => {
-    
-    const diff = end.split(" ")[0] - start.split(" ")[0];
-    if(diff == 4) {
-        return 'row-span-4'
-    }
-    if(diff == 3) {
-        return 'row-span-3'
-    }
-    if(diff == 1) {
-        return 'row-span-2'
-    }
-
-    return 'row-span-1'
-}
-
-const $appointments= [
+const AppointmentsData= [
     {
         id: "1",
         startTime: "5 AM",
         startDay: "Mon",
         endTime: "9 AM",
         endDay: "Mon",
-        classes : "border-blue-700/10 bg-blue-400/20"
+        classes : "border-blue-700/10 bg-blue-400/20",
+        text : [
+            "5 AM",
+            "Flight to Delhi",
+            "Wake up early!"
+        ]
     },
     {
         id: "2",
@@ -75,46 +94,74 @@ const $appointments= [
         startDay: "Tue",
         endTime: "10 AM",
         endDay: "Tue",
-        classes : "border-purple-700/10 bg-purple-400/20"
-    }
-]
-
-const $appointmentsData = {
-    "1" : [
+        classes : "border-purple-700/10 bg-purple-400/20",
+        text : [
             "5 AM",
             "Flight to Delhi",
             "Wake up early!"
-    ]
-}
+        ]
+    }
+]
 
-    <div class="flex flex-col">
-        <div></div>
-        <div class="m-4 flex-1 flex flex-col rounded-xl bg-gray-950/5 p-1 inset-ring inset-ring-gray-950/5">
-            <div class="flex-1 flex flex-col outline outline-white/5 rounded-lg bg-white overflow-auto">
-                <div class=" overflow-hidden">
-                    <div class="max-h-96 overflow-scroll grid grid-cols-[70px_repeat(7,150px)] grid-rows-[auto_repeat(16,50px)]">
+export component Page({ }) {
+
+    const $days = new RippleArray(...DAYS);
+    const $times = new RippleArray(...TIME_SERIES);
+    const $time_classes = new RippleMap();
+    const $appointments = new RippleArray(...AppointmentsData.map(a => ({...a, lines: new RippleArray(...a.text)})));
+    $times.forEach(
+        (t, i) => {
+            $time_classes.set(t, TIME_CLASSES[`${i+1}`])
+        }
+    )
+
+    const getTimeBlock = (start: string, end: string) => {
+        
+        const diff = end.split(" ")[0] - start.split(" ")[0];
+        if(diff == 4) {
+            return 'row-span-4'
+        }
+        if(diff == 3) {
+            return 'row-span-3'
+        }
+        if(diff == 1) {
+            return 'row-span-2'
+        }
+
+        return 'row-span-1'
+    }
+
+    <div class="h-screen flex flex-col overflow-hidden">
+        <div class="flex-1 flex flex-col min-h-0 m-4 rounded-xl bg-gray-950/5 p-1 inset-ring inset-ring-gray-950/5">
+            <div class="flex-1 flex flex-col min-h-0 outline outline-white/5 rounded-lg bg-white overflow-auto">
+                <div class="flex-1 flex flex-col min-h-0 overflow-hidden">
+                     <div class="overflow-scroll grid grid-cols-[70px_repeat(7,150px)] grid-rows-[auto_repeat(24,50px)]">
                         for(let day of $days) {
-                            const $class = $colClasses[day]
-                            <div $class={`sticky top-0 z-10 ${$colClasses[day]}  row-start-1 border-b border-gray-100 bg-white py-2 bg-clip-padding text-sm font-medium text-gray-900`}>
+                            const $class = DAYS_CLASSES[day]
+                            <div $class={`sticky top-0 z-10 ${DAYS_CLASSES[day]}  row-start-1 border-b border-gray-100 bg-white py-2 bg-clip-padding text-sm font-medium text-gray-900`}>
                                 {day}
                             </div>
                         }
-                        for (let time of Object.keys($times)){
-                            <div $class={`sticky left-0 ${$colClasses[""]} ${$times[time]}  border-r border-b border-gray-100 bg-white p-1.5 text-right bg-clip-padding text-xs uppercase font-medium text-gray-400`}>
+                        for (let time of $times){
+                            <div $class={`sticky left-0 ${DAYS_CLASSES[""]} ${$time_classes.get(time)}  border-r border-b border-gray-100 bg-white p-1.5 text-right bg-clip-padding text-xs uppercase font-medium text-gray-400`}>
                                 {time}
                             </div>
                             for(let day of $days.slice(1)) {
-                                <div $class={`${$colClasses[day]} ${$times[time]} border-r border-b border-gray-100`}>
+                                <div $class={`${DAYS_CLASSES[day]} ${$time_classes.get(time)} border-r border-b border-gray-100`}>
                                 
                                 </div>
                             }
                         }
 
                         for(let appointment of $appointments) {
-                            console.log($appointmentsData[appointment.id])
-                            const $id = appointment.id
-                            <div $class={`${$colClasses[appointment.startDay]} ${$times[appointment.startTime]} ${getTimeBlock(appointment.startTime, appointment.endTime)} m-1 flex flex-col rounded-lg border${appointment.classes}  p-1 overflow-auto`}>
-                               
+                            <div $class={`${DAYS_CLASSES[appointment.startDay]} ${$time_classes.get(appointment.startTime)} ${getTimeBlock(appointment.startTime, appointment.endTime)} m-1 flex flex-col rounded-lg border${appointment.classes}  p-1 overflow-auto`}>
+                                //TODO: ripple next array error code fix
+                                
+                                // {/* const $lines = appointment.lines
+                                // for(let line of $lines){
+                                //     <span>{line}</span>
+                                    
+                                // } */}
                             </div>
                         }
                     </div>
@@ -122,6 +169,4 @@ const $appointmentsData = {
             </div>
         </div>
     </div>
-    
-   
 }
