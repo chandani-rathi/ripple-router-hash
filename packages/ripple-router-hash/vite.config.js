@@ -8,7 +8,6 @@ export default defineConfig({
 		ripple(),
 		dtsPlugin({
 			entryRoot: 'src',
-			outputDir: 'dist',
 			insertTypesEntry: true,
 			copyDtsFiles: true,
 		}),

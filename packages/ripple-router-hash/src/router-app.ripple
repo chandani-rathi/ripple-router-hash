@@ -8,10 +8,10 @@ import { RouteContext } from "./context";
 
 export function createHashRouterApp({ target}) {
 	console.log("App Routes: ", routes);
-	mount(HashRouterApp, { target});
+	mount(RouteApp, { target});
 }
 
-export component HashRouterApp() {
+export component RouteApp() {
 	let $currentPath = untrack(() => getHashPath());
 	let $loading = true;
 	let $newRoute = null;
