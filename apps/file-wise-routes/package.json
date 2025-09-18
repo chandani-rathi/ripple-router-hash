@@ -21,7 +21,7 @@
 		"prettier-plugin-ripple": "0.2.46",
 		"tailwindcss": "^4.1.13",
 		"typescript": "^5.9.2",
-		"vite": "^7.1.5",
+		"vite": "^7.1.6",
 		"vite-plugin-ripple": "0.2.46",
 		"vite-plugin-ripple-router-hash": "workspace:*"
 	},
