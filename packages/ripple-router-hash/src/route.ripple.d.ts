@@ -1,3 +1,3 @@
 import type { Component } from "ripple";
 
-export const Route : Component
+export declare function Route(): Component

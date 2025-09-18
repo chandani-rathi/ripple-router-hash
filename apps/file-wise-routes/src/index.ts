@@ -1,5 +1,5 @@
-import { createHashRouterApp } from 'ripple-router-hash';
+import { createHashRouterApp } from "ripple-router-hash";
 
 createHashRouterApp({
-	target: document.getElementById('root'),
-});
+	target: document.getElementById("root")
+})

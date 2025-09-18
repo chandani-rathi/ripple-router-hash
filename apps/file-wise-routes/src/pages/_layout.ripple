@@ -1,0 +1,63 @@
+import { RippleArray } from "ripple"
+import { Link } from 'ripple-router-hash';
+const SIDEBAR = [
+	{
+		title: 'Home',
+		path: '/'
+	},
+	
+	{
+		title: 'About',
+		path: '/about'
+	},
+	
+	{
+		title: 'Blog',
+		path: '/blog'
+	},
+	
+	{
+		title: 'Blog 1',
+		path: '/blog/123'
+	},
+	
+	{
+		title: 'Dashboard',
+		path: '/dashboard'
+	},
+	
+	{
+		title: 'Settings',
+		path: '/dashboard/settings'
+	},
+	{
+		title: 'Users',
+		path: '/dashboard/users'
+	},
+	{
+		title: 'User: Kim',
+		path: '/dashboard/users/kim'
+	},
+	{
+		title: 'User Settings',
+		path: '/dashboard/users/kim/settings'
+	}
+]
+
+
+export component Page({ $children }) {
+	const sideNav = new RippleArray(...SIDEBAR)
+	<div class="h-screen overflow-hidden bg-gradient-to-br from-gray-100 to-white flex flex-row">
+		<div class="h-full flex flex-col gap-4 py-8 px-4">
+			<h1 class="text-3xl font-semibold">{"File Routes!"}</h1>
+			<div class="mt-4 text-gray-600 flex flex-col gap-4">
+				for(let $nav of sideNav) {
+					<Link $class="hover:underline cursor-pointer" $to={$nav.path}>{$nav.title}</Link>
+				}
+			</div>
+		</div>
+        <div class="flex-1 h-full p-8">
+			<$children />
+		</div>
+	</div>
+}

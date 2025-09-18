@@ -9,6 +9,7 @@
   "keywords": [],
   "author": "",
   "scripts": {
+    "test": "vitest",
     "patch": "npm version patch",
     "publish": "npm publish"
   },
@@ -17,5 +18,8 @@
   },
   "dependencies": {
     "fast-glob": "^3.3.3"
+  },
+  "devDependencies": {
+    "vitest": "^3.2.4"
   }
 }

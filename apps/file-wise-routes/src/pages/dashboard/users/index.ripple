@@ -1,0 +1,3 @@
+export component Page() {
+	<h1 class="text-lg">{"User List"}</h1>
+}

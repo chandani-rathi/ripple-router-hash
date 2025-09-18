@@ -9,8 +9,11 @@ export default function rippleRoutesPlugin(options = { pagesDir : "src/pages", f
 
   function generateRoutes() {
     const pageFilter = fileBasedRoutes ? "**/*.ripple" : "**/page.ripple";
-    const pageFiles = fg.sync(pageFilter, { cwd: pagesDir });
-    const layoutFiles = fg.sync("**/layout.ripple", { cwd: pagesDir });
+    const ignorePageFilter = fileBasedRoutes ? ["**/_*.ripple"] : [];
+    const pageFiles = fg.sync(pageFilter, { cwd: pagesDir, ignore: ignorePageFilter });
+    
+    const layoutFilter = fileBasedRoutes ? "**/_layout.ripple" : "**/layout.ripple";
+    const layoutFiles = fg.sync(layoutFilter, { cwd: pagesDir });
 
     const layouts = new Map();
     layoutFiles.forEach((file) => {
@@ -32,6 +35,9 @@ export default function rippleRoutesPlugin(options = { pagesDir : "src/pages", f
 
   function fileToRoutePath(file) {
     let route = "/" + file.replace(/\.ripple$/, "");
+    if(fileBasedRoutes) {
+      route = route.replace(/\/index$/, "")
+    }
     route = route.replace(/\[([^\]]+)\]/g, ":$1");
     return (route === "/index" || route === "/page.ripple") ? "/" : route;
   }
@@ -69,6 +75,7 @@ export default function rippleRoutesPlugin(options = { pagesDir : "src/pages", f
 
   function rebuild() {
     const routes = generateRoutes();
+    const routesTree = generateRoutesTree(routes);
     routeCode = `export default [${routes.join(",\n")}];`;
   }
 
@@ -95,3 +102,5 @@ export default function rippleRoutesPlugin(options = { pagesDir : "src/pages", f
     }
   };
 }
+
+

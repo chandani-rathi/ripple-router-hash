@@ -1,0 +1,5 @@
+export component Page() {
+	<div class="min-h-screen bg-gradient-to-br from-gray-100 to-white p-8 flex flex-col items-center justify-center">
+		<h1 class="text-4xl font-semibold animate-bounce">{"Blogs"}</h1>
+	</div>
+}

@@ -1,0 +1,4 @@
+export component Page({ params} ) {
+	const $id = params.id;
+	<h1 class="text-sm">{"User Id : " + $id}</h1>
+}

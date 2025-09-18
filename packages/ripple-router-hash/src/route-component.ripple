@@ -96,7 +96,10 @@ export component RouteComponent({ $component }){
 					})
 				})
 				.then(({mainComponent, data}) => {
-					console.log("mainComponent", mainComponent)
+						console.log("mainComponent", $component.id, mainComponent)
+						if(!mainComponent && $component.id != "not-found") {
+							console.warn("warning: node named Page or default export found in page ", $component.props)
+						}
 						$loading = false;
 						$data = {...($component.props || {}), data};
 						$routeComponent = mainComponent;
