@@ -1,13 +1,12 @@
-import { effect, untrack, mount, createContext  } from 'ripple';
+import { effect, untrack, mount, RippleMap  } from 'ripple';
 import { getHashPath, findRoute } from "@/lib/utils";
 import { NotFound } from "@/components/not-found.ripple";
 import { Loading } from "@/components/loading.ripple";
-import routes from 'virtual:ripple-routes';
+import routes, { routesTree}  from 'virtual:ripple-routes';
 import { Route } from "./route.ripple";
 import { RouteContext } from "./context";
 
 export function createHashRouterApp({ target}) {
-	console.log("App Routes: ", routes);
 	mount(RouteApp, { target});
 }
 
@@ -15,6 +14,11 @@ export component RouteApp() {
 	let $currentPath = untrack(() => getHashPath());
 	let $loading = true;
 	let $newRoute = null;
+	const $routeContext = new RippleMap(["documentTitle", document.title], ["routes", routes])
+
+	effect(() => {
+		RouteContext.set({ documentTitle: document.title, routes });
+	})
 
 	effect(() => {
 		$loading = false;
@@ -22,7 +26,7 @@ export component RouteApp() {
 	});
 
 	untrack(() => {
-		RouteContext.set({ documentTitle: document.title });
+		RouteContext.set({ documentTitle: document.title, routes });
 	})
 
 	effect(() => {

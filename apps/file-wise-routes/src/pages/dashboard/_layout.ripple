@@ -1,5 +1,5 @@
-export component Page({ $children, params }) {
-	console.log(params)
+export component Page({ $children, params, path }) {
+	console.log(params, path)
 	<div class="min-h-screen bg-gradient-to-br from-gray-100 to-white p-8 flex flex-col items-center ">
 		<h1 class="text-3xl font-semibold">{"Dashboard"}</h1>
 		<div class="flex-1 flex items-center justify-center">

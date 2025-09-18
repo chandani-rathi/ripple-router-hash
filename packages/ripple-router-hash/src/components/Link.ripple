@@ -1,13 +1,23 @@
-import { effect, untrack } from "ripple"
+import { effect, untrack } from "ripple";
+import { RouteContext } from "../context"
 
 export component Link({ $children, $to, $class }) {
-	async function handleClick(e) {
+
+  const context = RouteContext.get(RouteContext);
+  console.log(context);
+
+	async function onClick(e) {
 		e.preventDefault();
     if(!$to) return;
 		window.location.hash = '#' + $to;
 	}
 
-	<a $class={$class} $href={$to} onClick={handleClick}><$children /></a>
+  async function onMouseOver(e) {
+    if(!$to) return;
+
+  }
+
+	<a $class={$class} $href={$to} onClick={onClick} onMouseOver={onMouseOver} ><$children /></a>
 
 }
 

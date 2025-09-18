@@ -1,0 +1,56 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`routes > generate routes tree on routes 1`] = `
+{
+  "children": [
+    {
+      "children": [],
+      "id": "/about",
+      "import": undefined,
+      "path": "about",
+    },
+    {
+      "children": [
+        {
+          "children": [],
+          "id": "/blog/:slug",
+          "import": undefined,
+          "path": ":slug",
+        },
+      ],
+      "id": "/blog",
+      "import": undefined,
+      "path": "blog",
+    },
+    {
+      "children": [
+        {
+          "children": [],
+          "id": "/dashboard/settings",
+          "import": undefined,
+          "path": "settings",
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "id": "/dashboard/users/:id",
+              "import": undefined,
+              "path": ":id",
+            },
+          ],
+          "id": "/dashboard/users",
+          "import": undefined,
+          "path": "users",
+        },
+      ],
+      "id": "/dashboard",
+      "import": undefined,
+      "path": "dashboard",
+    },
+  ],
+  "id": "root",
+  "import": null,
+  "path": "",
+}
+`;

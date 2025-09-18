@@ -5,6 +5,7 @@ import path from 'path';
 import rippleRoutesPlugin from "vite-plugin-ripple-router-hash";
 
 export default defineConfig({
+	base: "./",
 	plugins: [ripple(), tailwindcss(), rippleRoutesPlugin({
 		pagesDir: "src/pages",
 		fileBasedRoutes: true
