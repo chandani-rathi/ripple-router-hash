@@ -20,7 +20,7 @@ export component Route({ $route }: {
 		};
 		const comps = []
 		const { layouts, component, params, path} =  $route;
-		const props = {params, path}
+		const props = { params, path }
 		if(layouts?.length > 0) {
 			layouts.forEach(l => comps.push({ id: `layout:${l.id}`, import: l.import, props: props}))
 		}

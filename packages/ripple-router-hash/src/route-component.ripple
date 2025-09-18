@@ -6,8 +6,7 @@ import { Error } from "@/components/error.ripple";
 import { RouteContext } from "./context";
 
 
-function getComponent(module){
-	console.log("getComponent", module)
+function getComponent(module) {
 	const mainComponent =  module.Layout || module.Page || module.default || null;
 	const loadingComponent = module.Loading;
 	const errorComponent = module.Error;
@@ -82,7 +81,7 @@ export component RouteComponent({ $component }){
 				.then((module) => {
 					return new Promise((resolve, reject) => {
 						if(module.loader){
-							const data = typeof(module.loader) === "function" ? module.loader(): {};
+							const data = typeof(module.loader) === "function" ? module.loader({...($component.props || {})}): {};
 							if(isPromiseLike(data)) {
 								data.then(r => resolve({...module, data: r})).catch(reject)
 							}
@@ -96,7 +95,6 @@ export component RouteComponent({ $component }){
 					})
 				})
 				.then(({mainComponent, data}) => {
-						console.log("mainComponent", $component.id, mainComponent)
 						if(!mainComponent && $component.id != "not-found") {
 							console.warn("warning: node named Page or default export found in page ", $component.props)
 						}

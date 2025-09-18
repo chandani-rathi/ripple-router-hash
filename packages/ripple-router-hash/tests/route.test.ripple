@@ -2,7 +2,9 @@ import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { mount, flushSync} from 'ripple';
 import { Route } from "@/route.ripple";
 
-
+ async function waitFor(millisecond) {
+	await new Promise((r) => setTimeout(() => r(), millisecond))
+ }
 
 describe('route', () => {
 
@@ -63,31 +65,120 @@ describe('route', () => {
 
 	});
 
-     it('render route with component in $route', async () => {
+     it('render route with empty path in $route', async () => {
 		console.log("compiled");
         component Page(){
             <div>{"Hello Route"}</div>
         }
 
 		component PageRoute() {
-			<Route $route={{ path: "/", component: () => Promise.resolve({Page})}}/>
+			<Route $route={{ path: "", component: () => Promise.resolve({Page})}}/>
 		}
 
-        
-        vi.mock('./route-component.ripple', () => ({
-            RouteComponent: Page,
-        }));
-
 		render(PageRoute);
-        flushSync(() => {});
-        flushSync(() => {});
-        flushSync(() => {});
-        flushSync(() => {});
-        flushSync(() => {});
-        flushSync(() => {});
-        flushSync(() => {});
-        flushSync(() => {});
+		flushSync(() => {})
 		expect(container).toMatchSnapshot();
 
+	});
+
+     it('render route with $route', async () => {
+		console.log("compiled");
+        component Page(){
+            <div>{"Hello Route"}</div>
+        }
+
+		const importModule = async () => {
+			return { Page }
+		}
+		component PageRoute() {
+			<Route $route={{ path: "/", component: importModule }}/>
+		}
+
+		render(PageRoute);
+		flushSync(() => {});
+		await waitFor(0)
+		expect(container).toMatchSnapshot();
+
+	});
+
+     it('render route with inbuilt loading component $route', async () => {
+		console.log("compiled");
+        component Page(){
+            <div>{"Hello Route"}</div>
+        }
+
+		const importModule = async () => {
+			await waitFor(100);
+			return { Page }
+		}
+
+		component PageRoute() {
+			<Route $route={{ path: "/", component: importModule }}/>
+		}
+
+		render(PageRoute);
+		flushSync(() => {});
+		await new Promise((r) => setTimeout(() => r(), 0));
+		expect(container).toMatchSnapshot();
+		await waitFor(100);
+		expect(container).toMatchSnapshot();
+	});
+
+     it('render route with loading component with loader $route', async () => {
+		console.log("compiled");
+        component Page({ data, params }){
+            <div>{`Hello ${data.id}`}</div>
+        }
+
+        component Loading(){
+            <div>{"Loading..."}</div>
+        }
+
+		async function loader({ params }){
+			await waitFor(100);
+			return { id: params.username }
+		}
+
+		const importModule = async () => {
+			await waitFor(100);
+			return { Loading, Page, loader }
+		}
+
+		component PageRoute() {
+			<Route $route={{ path: "/", component: importModule, params: { username: "test"} }}/>
+		}
+
+		render(PageRoute);
+		flushSync(() => {});
+		await new Promise((r) => setTimeout(() => r(), 0));
+		expect(container).toMatchSnapshot();
+		await waitFor(100);
+		expect(container).toMatchSnapshot();
+		await waitFor(100);
+		expect(container).toMatchSnapshot();
+	});
+
+
+    it('render route with inbuilt error component $route', async () => {
+		console.log("compiled");
+        component Page(){
+            <div>{"Hello Route"}</div>
+        }
+
+		const importModule = async () => {
+			await waitFor(100);
+			throw Error("Test Error!")
+			return { Page }
+		}
+
+		component PageRoute() {
+			<Route $route={{ path: "/", component: importModule }}/>
+		}
+
+		render(PageRoute);
+		flushSync(() => {});
+		await new Promise((r) => setTimeout(() => r(), 0));
+		await waitFor(100);
+		expect(container).toMatchSnapshot();
 	});
 });

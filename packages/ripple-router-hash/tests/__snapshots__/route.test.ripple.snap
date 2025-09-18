@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`route > render route with component in $route 1`] = `
+exports[`route > render route with $route 1`] = `
 <div>
   <!---->
   <!---->
@@ -12,11 +12,11 @@ exports[`route > render route with component in $route 1`] = `
   <!---->
   <!---->
   <!---->
-  <div
-    class="min-h-screen bg-gradient-to-br from-gray-100 to-white p-8 flex flex-col items-center justify-start"
-  >
-    Loading...
+  <!---->
+  <div>
+    Hello Route
   </div>
+  <!---->
   <!---->
   <!---->
   <!---->
@@ -57,6 +57,299 @@ exports[`route > render route with empty $route 1`] = `
     </a>
     <!---->
   </div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  
+</div>
+`;
+
+exports[`route > render route with empty path in $route 1`] = `
+<div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <div
+    class="min-h-screen bg-gradient-to-br from-gray-100 to-white p-8 flex flex-col items-center justify-center"
+  >
+    <h1
+      class="text-4xl font-semibold"
+    >
+      404 - Not Found
+    </h1>
+    <div
+      class="mt-4 text-gray-600"
+    >
+      The page you are looking for does not exist.
+    </div>
+    <a
+      class="hover:underline"
+      href="/"
+    >
+      Go to Home Page
+      <!---->
+    </a>
+    <!---->
+  </div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  
+</div>
+`;
+
+exports[`route > render route with inbuilt error component $route 1`] = `
+<div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <div
+    class="min-h-screen bg-gradient-to-br from-gray-100 to-white p-8 flex flex-col items-center justify-center"
+  >
+    <h1
+      class="text-4xl font-semibold"
+    >
+      Error Occurred!
+    </h1>
+    <div
+      class="mt-4 text-gray-600"
+    >
+      The page you are looking causing error.
+    </div>
+    <a
+      class="hover:underline"
+      href="/"
+    >
+      Go to Home Page
+      <!---->
+    </a>
+    <!---->
+  </div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  
+</div>
+`;
+
+exports[`route > render route with inbuilt loading component $route 1`] = `
+<div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <div
+    class="min-h-screen bg-gradient-to-br from-gray-100 to-white p-8 flex flex-col items-center justify-start"
+  >
+    Loading...
+  </div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  
+</div>
+`;
+
+exports[`route > render route with inbuilt loading component $route 2`] = `
+<div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <div>
+    Hello Route
+  </div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  
+</div>
+`;
+
+exports[`route > render route with loading component with loader $route 1`] = `
+<div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <div
+    class="min-h-screen bg-gradient-to-br from-gray-100 to-white p-8 flex flex-col items-center justify-start"
+  >
+    Loading...
+  </div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  
+</div>
+`;
+
+exports[`route > render route with loading component with loader $route 2`] = `
+<div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <div>
+    Loading...
+  </div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  
+</div>
+`;
+
+exports[`route > render route with loading component with loader $route 3`] = `
+<div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <div>
+    Hello test
+  </div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  
+</div>
+`;
+
+exports[`route > render route with loading state $route 1`] = `
+<div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <div
+    class="min-h-screen bg-gradient-to-br from-gray-100 to-white p-8 flex flex-col items-center justify-start"
+  >
+    Loading...
+  </div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  
+</div>
+`;
+
+exports[`route > render route with loading state $route 2`] = `
+<div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <div>
+    Hello Route
+  </div>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  <!---->
   <!---->
   <!---->
   <!---->
