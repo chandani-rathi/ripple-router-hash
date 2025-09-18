@@ -1,13 +1,15 @@
 import path from "node:path";
 import fg from "fast-glob";
 
-export default function rippleRoutesPlugin(options = {}) {
+export default function rippleRoutesPlugin(options = { pagesDir : "src/pages", fileBasedRoutes: false}) {
   const pagesDir = options.pagesDir || "src/pages";
+  const fileBasedRoutes = options.fileBasedRoutes;
   const virtualModuleId = "virtual:ripple-routes";
   const resolvedVirtualId = "\0" + virtualModuleId;
 
   function generateRoutes() {
-    const pageFiles = fg.sync("**/page.ripple", { cwd: pagesDir });
+    const pageFilter = fileBasedRoutes ? "**/*.ripple" : "**/page.ripple";
+    const pageFiles = fg.sync(pageFilter, { cwd: pagesDir });
     const layoutFiles = fg.sync("**/layout.ripple", { cwd: pagesDir });
 
     const layouts = new Map();
@@ -29,7 +31,7 @@ export default function rippleRoutesPlugin(options = {}) {
   }
 
   function fileToRoutePath(file) {
-    let route = "/" + file.replace(/\/page\.ripple$/, "");
+    let route = "/" + file.replace(/\.ripple$/, "");
     route = route.replace(/\[([^\]]+)\]/g, ":$1");
     return (route === "/index" || route === "/page.ripple") ? "/" : route;
   }

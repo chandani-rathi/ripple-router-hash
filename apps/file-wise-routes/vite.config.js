@@ -5,7 +5,10 @@ import path from 'path';
 import rippleRoutesPlugin from "vite-plugin-ripple-router-hash";
 
 export default defineConfig({
-	plugins: [ripple(), tailwindcss(), rippleRoutesPlugin()],
+	plugins: [ripple(), tailwindcss(), rippleRoutesPlugin({
+		pagesDir: "src/pages",
+		fileBasedRoutes: true
+	})],
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, './src'),
