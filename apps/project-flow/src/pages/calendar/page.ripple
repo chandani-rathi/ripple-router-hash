@@ -1,78 +1,5 @@
 import { RippleArray, RippleMap } from "ripple";
-const DAYS = [
-    "",
-    "Sun",
-    "Mon",
-    "Tue",
-    "Wed",
-    "Thu",
-    "Fri",
-    "Sat",
-];
-
-const DAYS_CLASSES = {
-    "" : "col-start-1",
-    "Sun" : "col-start-2",
-    "Mon" : "col-start-3",
-    "Tue" : "col-start-4",
-    "Wed" : "col-start-5",
-    "Thu" : "col-start-6",
-    "Fri" : "col-start-7",
-    "Sat" : "col-start-8",
-}
-
-const TIME_SERIES = [
-    "0 AM",
-    "1 AM",
-    "2 AM",
-    "3 AM",
-    "4 AM",
-    "5 AM",
-    "6 AM",
-    "7 AM",
-    "8 AM",
-    "9 AM",
-    "10 AM",
-    "11 AM",
-    "12 AM",
-    "1 PM",
-    "2 PM",
-    "3 PM",
-    "4 PM",
-    "5 PM",
-    "6 PM",
-    "7 PM",
-    "8 PM",
-    "9 PM",
-    "10 PM",
-    "11 PM",
-]
-
-const TIME_CLASSES = {
-    "1" : "row-start-2",
-    "2" : "row-start-3",
-    "3" : "row-start-4",
-    "4" : "row-start-5",
-    "5" : "row-start-6",
-    "6" : "row-start-7",
-    "7" : "row-start-8",
-    "8" : "row-start-9",
-    "9" : "row-start-10",
-    "10" : "row-start-11",
-    "11" : "row-start-12",
-    "12" : "row-start-13",
-    "13" : "row-start-14",
-    "14" : "row-start-15",
-    "15" : "row-start-16",
-    "16" : "row-start-17",
-    "17" : "row-start-18",
-    "18" : "row-start-20",
-    "19" : "row-start-21",
-    "20" : "row-start-22",
-    "21" : "row-start-23",
-    "23" : "row-start-24",
-    "24" : "row-start-25",
-}
+import { AppointMentSchedular } from "@/components/ui/appointment-schedular.ripple"
 
 const AppointmentsData= [
     {
@@ -96,77 +23,15 @@ const AppointmentsData= [
         endDay: "Tue",
         classes : "border-purple-700/10 bg-purple-400/20",
         text : [
-            "5 AM",
-            "Flight to Delhi",
-            "Wake up early!"
+            "6 AM",
+            "Back flight from Delhi",
+            "Reach airport early!"
         ]
     }
 ]
 
 export component Page({ }) {
-
-    const $days = new RippleArray(...DAYS);
-    const $times = new RippleArray(...TIME_SERIES);
-    const $time_classes = new RippleMap();
-    const $appointments = new RippleArray(...AppointmentsData.map(a => ({...a, lines: new RippleArray(...a.text)})));
-    $times.forEach(
-        (t, i) => {
-            $time_classes.set(t, TIME_CLASSES[`${i+1}`])
-        }
-    )
-
-    const getTimeBlock = (start: string, end: string) => {
-        
-        const diff = end.split(" ")[0] - start.split(" ")[0];
-        if(diff == 4) {
-            return 'row-span-4'
-        }
-        if(diff == 3) {
-            return 'row-span-3'
-        }
-        if(diff == 1) {
-            return 'row-span-2'
-        }
-
-        return 'row-span-1'
-    }
-
     <div class="h-screen flex flex-col overflow-hidden">
-        <div class="flex-1 flex flex-col min-h-0 m-4 rounded-xl bg-gray-950/5 p-1 inset-ring inset-ring-gray-950/5">
-            <div class="flex-1 flex flex-col min-h-0 outline outline-white/5 rounded-lg bg-white overflow-auto">
-                <div class="flex-1 flex flex-col min-h-0 overflow-hidden">
-                     <div class="overflow-scroll grid grid-cols-[70px_repeat(7,150px)] grid-rows-[auto_repeat(24,50px)]">
-                        for(let day of $days) {
-                            
-                            <div class={`sticky top-0 z-10 ${DAYS_CLASSES[day]}  row-start-1 border-b border-gray-100 bg-white py-2 bg-clip-padding text-sm font-medium text-gray-900`}>
-                                {day}
-                            </div>
-                        }
-                        for (let time of $times){
-                            <div class={`sticky left-0 ${DAYS_CLASSES[""]} ${$time_classes.get(time)}  border-r border-b border-gray-100 bg-white p-1.5 text-right bg-clip-padding text-xs uppercase font-medium text-gray-400`}>
-                                {time}
-                            </div>
-                            for(let day of $days.slice(1)) {
-                                <div class={`${DAYS_CLASSES[day]} ${$time_classes.get(time)} border-r border-b border-gray-100`}>
-                                
-                                </div>
-                            }
-                        }
-
-                        for(let appointment of $appointments) {
-                            <div class={`${DAYS_CLASSES[appointment.startDay]} ${$time_classes.get(appointment.startTime)} ${getTimeBlock(appointment.startTime, appointment.endTime)} m-1 flex flex-col rounded-lg border${appointment.classes}  p-1 overflow-auto`}>
-                                //TODO: ripple next array error code fix
-                                
-                                // {/* const $lines = appointment.lines
-                                // for(let line of $lines){
-                                //     <span>{line}</span>
-                                    
-                                // } */}
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
+        <AppointMentSchedular appointments={AppointmentsData} />
     </div>
 }

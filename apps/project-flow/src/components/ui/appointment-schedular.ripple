@@ -1,0 +1,220 @@
+import { RippleArray, RippleMap, track } from "ripple";
+
+const DAYS = [
+    "",
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat",
+];
+
+const DAYS_CLASSES = {
+    "" : "col-start-1",
+    "Sun" : "col-start-2",
+    "Mon" : "col-start-3",
+    "Tue" : "col-start-4",
+    "Wed" : "col-start-5",
+    "Thu" : "col-start-6",
+    "Fri" : "col-start-7",
+    "Sat" : "col-start-8",
+}
+
+const TIME_SERIES = [
+    "0 AM",
+    "1 AM",
+    "2 AM",
+    "3 AM",
+    "4 AM",
+    "5 AM",
+    "6 AM",
+    "7 AM",
+    "8 AM",
+    "9 AM",
+    "10 AM",
+    "11 AM",
+    "12 AM",
+    "1 PM",
+    "2 PM",
+    "3 PM",
+    "4 PM",
+    "5 PM",
+    "6 PM",
+    "7 PM",
+    "8 PM",
+    "9 PM",
+    "10 PM",
+    "11 PM",
+]
+
+const TIME_CLASSES = {
+    "1" : "row-start-2",
+    "2" : "row-start-3",
+    "3" : "row-start-4",
+    "4" : "row-start-5",
+    "5" : "row-start-6",
+    "6" : "row-start-7",
+    "7" : "row-start-8",
+    "8" : "row-start-9",
+    "9" : "row-start-10",
+    "10" : "row-start-11",
+    "11" : "row-start-12",
+    "12" : "row-start-13",
+    "13" : "row-start-14",
+    "14" : "row-start-15",
+    "15" : "row-start-16",
+    "16" : "row-start-17",
+    "17" : "row-start-18",
+    "18" : "row-start-20",
+    "19" : "row-start-21",
+    "20" : "row-start-22",
+    "21" : "row-start-23",
+    "23" : "row-start-24",
+    "24" : "row-start-25",
+}
+
+
+export component AppointMentSchedular({ appointments }){
+    const days = new RippleArray(...DAYS);
+    const times = new RippleArray(...TIME_SERIES);
+    const time_classes = new RippleMap();
+    const appointmentData = new RippleArray(...appointments.map(a => ({...a, lines: new RippleArray(...a.text)})));
+    times.forEach(
+        (t, i) => {
+            time_classes.set(t, TIME_CLASSES[`${i+1}`])
+        }
+    )
+
+    const getTimeBlock = (start: string, end: string) => {
+        
+        const diff = parseInt(end.split(" ")[0]) - parseInt(start.split(" ")[0]);
+        if(diff == 7) {
+            return 'row-span-7'
+        }
+        if(diff == 6) {
+            return 'row-span-6'
+        }
+        if(diff == 5) {
+            return 'row-span-5'
+        }
+        if(diff == 4) {
+            return 'row-span-4'
+        }
+        if(diff == 3) {
+            return 'row-span-3'
+        }
+        if(diff == 2) {
+            return 'row-span-2'
+        }
+
+        return 'row-span-1'
+    }
+
+    const selectionStarted = track(false);
+    const newAppointment = new RippleMap();
+
+    function handleMouseDown(day, time){
+        console.log("starting selection", day, time);
+        const appointment = {
+            startTime: time,
+            startDay: day,
+            endTime: time,
+            endDay: day,
+            classes: "border-yellow-700/10 bg-yellow-400/20",
+            message : [
+                "6 AM",
+                "Back flight from Delhi",
+                "Reach airport early!"
+            ],
+            lines : [
+                "6 AM",
+                "Back flight from Delhi",
+                "Reach airport early!"
+            ]
+        }
+        Object.keys(appointment).forEach(
+            k => newAppointment.set(k, appointment[k])
+        )
+        
+        @selectionStarted = true;
+    }
+
+    function handleMouseEnter(day, time){
+        if(!@selectionStarted) return;
+
+        console.log("added to selection column", day, time);
+        const appointment = {  endTime: (parseInt(time.split(" ")[0]) + 1) + "" + time.split(" ")[1], endDay: day};
+        Object.keys(appointment).forEach(
+            k => newAppointment.set(k, appointment[k])
+        )
+    }
+
+    
+
+    function handleMouseUp(){
+        if(@selectionStarted) {
+            console.log("ending selection");
+            console.log(JSON.stringify(newAppointment));
+            //newAppointment.clear();
+        }
+
+        @selectionStarted = false;
+    }
+
+    <div>{newAppointment.get("endTime")}</div>
+
+    <div class="flex-1 flex flex-col min-h-0 m-4 rounded-xl bg-gray-950/5 p-1 inset-ring inset-ring-gray-950/5">
+            <div class="flex-1 flex flex-col min-h-0 outline outline-white/5 rounded-lg bg-white overflow-auto">
+                <div class="flex-1 flex flex-col min-h-0 overflow-hidden"
+                    onMouseLeave={handleMouseUp} onMouseUp={handleMouseUp}>
+                     <div class="overflow-scroll grid grid-cols-[70px_repeat(7,150px)] grid-rows-[auto_repeat(24,50px)]">
+                        for(let day of days) {
+                            <div class={`sticky top-0 z-10 ${DAYS_CLASSES[day]}  row-start-1 border-b border-gray-100 bg-white py-2 bg-clip-padding text-sm font-medium text-gray-900 select-none`}>
+                                {day}
+                            </div>
+                        }
+                        for (let time of times){
+                            <div class={`sticky left-0 ${DAYS_CLASSES[""]} ${time_classes.get(time)}  border-r border-b border-gray-100 bg-white p-1.5 text-right bg-clip-padding text-xs uppercase font-medium text-gray-400 select-none`}>
+                                {time}
+                            </div>
+                            for(let day of days.slice(1)) {
+                                <div class={`${DAYS_CLASSES[day]} ${time_classes.get(time)} border-r border-b border-gray-100 select-none hover:bg-blue-400/30 hover:rounded`}
+                                    onMouseDown={() => handleMouseDown(day, time)} onMouseEnter={() => handleMouseEnter(day, time)}>
+                                
+                                </div>
+                            }
+                        }
+
+                        for(let appointment of appointmentData) {
+                            <div class={`${DAYS_CLASSES[appointment.startDay]} ${time_classes.get(appointment.startTime)} ${getTimeBlock(appointment.startTime, appointment.endTime)} m-1 flex flex-col gap-1 rounded-lg border${appointment.classes}  p-2 overflow-auto`}>
+                                //TODO: ripple next array error code fix
+                                <span class="text-xs font-mono">{appointment.lines[0]}</span>
+                                <span class="text-sm font-semibold">{appointment.lines[1]}</span>
+                                <span class="text-sm">{appointment.lines[2]}</span>
+                            </div>
+                        }
+
+                        if(newAppointment.has("startTime") && !@selectionStarted) {
+                            const startTime = newAppointment.get("startTime");
+                            const endTime = newAppointment.get("endTime");
+                            const startDay = newAppointment.get("startDay");;
+                            const endDay = newAppointment.get("endDay");
+                            const block = getTimeBlock(startTime, endTime);
+                            const classes = newAppointment.get("classes");
+                            const message = newAppointment.get("message");
+                            console.log(startTime, endTime, block)
+                            <div class={`${DAYS_CLASSES[startDay]} ${time_classes.get(startTime)} ${block} m-1 flex flex-col gap-1 rounded-lg border${classes}  p-2 overflow-auto`}>
+                                //TODO: ripple next array error code fix
+                                <span class="text-xs font-mono">{message[0]}</span>
+                                <span class="text-sm font-semibold">{message[1]}</span>
+                                <span class="text-sm">{message[2]}</span>
+                            </div>
+                        }
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+}
