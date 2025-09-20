@@ -2,11 +2,12 @@ import { Search, Bell, User } from '@/components/icons';
 import { Input } from '@/components/ui/input.ripple';
 import { Button } from '@/components/ui/button.ripple';
 import { Link } from "ripple-router-hash";
+import animation from "@/lib/animation";
 
 export component Page() {
 	let $searchQuery = '';
 
-	<div class=''><div class='border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-6 py-4'><div class='flex justify-between items-center'>
+	<div {ref animation.slideIn({duration: 0.5 })} class=''><div class='border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-6 py-4'><div class='flex justify-between items-center'>
 		<div>
 			<h1 class='text-2xl font-bold capitalize'>{'Dashboard'}</h1>
 			<p class='text-muted-foreground'>{'Manage your projects efficiently'}</p>

@@ -1,8 +1,9 @@
 import { Button } from '@/components/ui/button.ripple';
 import { Filter, Plus } from '@/components/icons';
+import animation from "@/lib/animation";
 
 export component Layout(props) {
-	<div class="flex-1 flex flex-col">
+	<div  {ref animation.slideIn()} class="flex-1 flex flex-col">
         <div class='border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-6 py-4'>
             <div class='flex justify-between items-center '>
                 <div>

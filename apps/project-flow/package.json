@@ -28,6 +28,7 @@
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"lucide-react": "^0.544.0",
+		"motion": "^12.23.16",
 		"ripple": "0.2.53",
 		"ripple-router-hash": "workspace:*",
 		"tailwind-merge": "^3.3.1"
