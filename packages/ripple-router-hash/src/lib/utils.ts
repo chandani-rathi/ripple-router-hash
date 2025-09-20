@@ -6,16 +6,16 @@ export function getHashPath() {
 
 
 export function arrayToTree(arr) {
-  if (!arr.length) return new RippleArray();
+  if (!arr.length) return new Array();
 
   // Start from the last element and build backwards
-  let tree = { ...arr[arr.length - 1], children: new RippleArray() };
+  let tree = { ...arr[arr.length - 1], children: new Array() };
 
   for (let i = arr.length - 2; i >= 0; i--) {
-    tree = { ...arr[i], children: new RippleArray(tree) };
+    tree = { ...arr[i], children: new Array(tree) };
   }
 
-  return new RippleArray(tree);
+  return new Array(tree);
 }
 
 export function updateTree(newTree, oldTree){

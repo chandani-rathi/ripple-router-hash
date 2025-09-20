@@ -1,49 +1,141 @@
-import { effect, RippleArray } from 'ripple';
+import { effect, track, RippleArray } from 'ripple';
 import { arrayToTree } from "@/lib/utils";
 import { NotFound } from "@/components/not-found.ripple";
 import { Loading } from "@/components/loading.ripple";
 import { RouteComponent } from "./route-component.ripple"
 
-export component Route({ $route }: {
-	$route?: { 
+export component Route({ route }: {
+	route?: { 
 		layouts?: any[],
 		component: Function,
 		params?: {[key: string]: string},
 		path: string
 	}}) {
-	let $tree = new RippleArray();
+	const isRouteNotFound = @track(false);
+	const isRouteLoading = @track(true);
+	const newTree = @track(null);
+	const tree = new RippleArray();
 
 	effect(() => {
-		if(!$route || typeof $route.path == "undefined" ) {
-			$tree = null;
+		if(!@newTree) return;
+
+		console.log("loading new route component", @newTree);
+		const loadedRoutes = JSON.parse(sessionStorage.getItem("loadedRoutes") || "[]")
+		console.log(loadedRoutes);
+
+		const visitNode = (node, previousNode, currentTree) => {
+			console.log("node", node);
+			console.log("previousNode", previousNode);
+			if(previousNode && previousNode.id != node.id) {
+				console.log("removing previous node and adding new node")
+				const newNode = { ... node}
+				newNode.children = new RippleArray();
+				currentTree.splice(0, 1, newNode);
+			}
+			else if(previousNode && previousNode.id == node.id) {
+				console.log("both previous node and new node is same")
+				//tree.splice(i, 1, node);
+			}
+			else {
+				console.log("adding new node");
+				const newNode = { ... node}
+				newNode.children = new RippleArray();
+				currentTree.push(newNode);
+			}
+
+			if(node.children.length > 0) {
+				const childNode = node.children[0]
+				const childPreviousNode = (previousNode && previousNode.children[0] ) ?? null;
+				visitNode(childNode, childPreviousNode, currentTree[0].children);
+			}
+			
+		}
+
+		console.log(JSON.stringify(tree));
+		let depth = 0;
+		const getDepth = (node) => {
+			if(!node || !node[0]) 
+				return
+
+			const selectedNode = node[0];
+			depth = depth + 1;
+			getDepth(selectedNode.children)
+		}
+		getDepth(loadedRoutes)
+		const previousRoutesDepth = depth;
+
+		depth = 0;
+		getDepth(@newTree)
+		const newRoutesDepth = depth;
+
+
+		depth = 0;
+		const removeNodeFromDepth = (node, startingDepth) => {
+			if(!node || !node[0]) 
+				return
+			const selectedNode = node[0];
+			depth = depth + 1;
+			if(depth > startingDepth){
+				node.splice(0, 1)
+				return
+			}
+			getDepth(selectedNode.children)
+		}
+
+		console.log("depth", previousRoutesDepth, newRoutesDepth)
+		
+		if(previousRoutesDepth <= newRoutesDepth) {
+			const node = @newTree[0]
+			const previousNode = loadedRoutes ? loadedRoutes[0] : null;
+			visitNode(node, previousNode, tree);
+		}
+		else {
+			removeNodeFromDepth(tree, newRoutesDepth);
+			console.log("modified tree", JSON.stringify(tree, null ,2 ));
+			const node = @newTree[0]
+			const previousNode = loadedRoutes ? loadedRoutes[0] : null;
+			visitNode(node, previousNode, tree);
+		}
+		
+		console.log(JSON.stringify(tree, null ,2 ))
+		sessionStorage.setItem("loadedRoutes", JSON.stringify(@newTree));
+	})
+
+	effect(() => {
+		if(!route || typeof route.path == "undefined" ) {
+			@isRouteLoading = false;
+			@isRouteNotFound = true;
 			return
 		};
 		const comps = []
-		const { layouts, component, params, path} =  $route;
+		const { layouts, component, params, path} =  route;
 		const props = { params, path }
 		if(layouts?.length > 0) {
-			layouts.forEach(l => comps.push({ id: `layout:${l.id}`, import: l.import, props: props}))
+			layouts.forEach(l => comps.push({ id: `layout:${l.id}`, "route": l.import, props: props}))
 		}
-		if($route.path && component) {
-			comps.push({id: `page:${$route.path}`, import: component, props: props});
+		if(route.path && component) {
+			comps.push({id: `page:${route.path}`, "route": component, props: props});
 		}
 		else {
-			comps.push({id: `not-found`, import: null, props: props});
+			comps.push({id: `not-found`, "route": null, props: props});
 		}
-		
-		const newTree = arrayToTree(comps);
-		$tree = newTree;
+		@isRouteLoading = false;
+
+		const newTreeRoute = arrayToTree(comps);
+		@newTree = newTreeRoute;
+		// console.log(newTree)
+		// @tree = newTree;
 	})
 
-	if ($tree?.$length == 0) {
+	if (@isRouteLoading) {
 		<Loading />
 	}
 	
-	if ($tree == null) {
+	if (@isRouteNotFound) {
 		<NotFound />
 	} 
 	
-	for(let child of $tree) {
-		<RouteComponent $component={child} />
+	for(let child of tree) {
+		<RouteComponent id={child.id} route={child.route} routeProps={child.props} routeChildren={child.children} />
 	}
 }

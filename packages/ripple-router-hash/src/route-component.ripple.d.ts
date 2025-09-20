@@ -3,10 +3,10 @@ import type { Component } from "ripple";
 export type DynamicDataProps = {
     $component: Function, 
     $data: {[key:string]: string}, 
-    $children: Component
+    children: Component
 }
 
-export declare function DynamicDataComponent({ $component, $data, $children }): Component
+export declare function DynamicDataComponent({ $component, $data, children }): Component
 
 export type RouteProp = {
     id: string,

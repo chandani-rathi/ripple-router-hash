@@ -1,23 +1,35 @@
-import { effect, untrack } from "ripple";
-import { RouteContext } from "../context"
+import { effect, track } from "ripple";
+import { RouteContext } from "../context";
+import { findRoute } from "../lib/utils"
 
-export component Link({ $children, $to, $class }) {
-
-  const context = RouteContext.get(RouteContext);
-  console.log(context);
+export component Link(props) {
+  const { children, to } = props;
+  const context = track(() => RouteContext.get(RouteContext));
 
 	async function onClick(e) {
 		e.preventDefault();
-    if(!$to) return;
-		window.location.hash = '#' + $to;
+    if(!to) return;
+		window.location.hash = '#' + to;
 	}
 
   async function onMouseOver(e) {
-    if(!$to) return;
+    if(!to) return;
+    
+    if(@context.@routes) {
+      const foundRoute = findRoute(to, context.@routes);
+    
+      if(foundRoute?.layouts?.length > 0) {
+        foundRoute.layouts.forEach(l => l.import());
+      }
 
+      if(!foundRoute?.component) return;
+
+      foundRoute.component();
+    }
+    
   }
 
-	<a $class={$class} $href={$to} onClick={onClick} onMouseOver={onMouseOver} ><$children /></a>
+	<a class={props["class"]} href={to} onClick={onClick} onMouseOver={onMouseOver} ><children /></a>
 
 }
 
@@ -25,7 +37,6 @@ export component Link({ $children, $to, $class }) {
 function getHashPath() {
   return window.location.hash.replace(/^#/, "") || "/";
 }
-
 
 export function useRoute() {
   let $currentRoute = getHashPath()

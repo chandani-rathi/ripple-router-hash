@@ -4,13 +4,13 @@ export component Layout(props) {
     const params = props.params
     <div class="my-4 ">
         {" / "}
-        <Link $class="font-semibold hover:underline" $to={"/projects"}>{"Project"}</Link>
+        <Link class="font-semibold hover:underline" to={"/projects"}>{"Project"}</Link>
         {" / "}
         {params.id}
     </div>
     <div>
         <div class='flex flex-col gap-2'>
-            <props.$children />
+            <props.children />
         </div>
     </div>
 }

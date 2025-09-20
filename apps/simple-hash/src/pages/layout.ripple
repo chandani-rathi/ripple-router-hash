@@ -1,20 +1,20 @@
 import { Link } from 'ripple-router-hash';
 
-export component Page({ $children }) {
+export component Page({ children }) {
 	<div class="min-h-screen flex flex-col bg-white ">
 		<div class="flex gap-4 justify-end px-8 py-4 border-b-1 border-gray">
-			<Link $to="/">
+			<Link to="/">
 				{"Home"}
 			</Link>
-			<Link $to="/about">
+			<Link to="/about">
 				{"About"}
 			</Link>
-			<Link $to="/setting">
+			<Link to="/setting">
 				{"Setting"}
 			</Link>
 		</div>
 		<div class="flex-1 flex flex-col">
-			<$children />
+			<children />
 		</div>
 	</div>
 }

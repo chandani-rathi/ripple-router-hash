@@ -35,22 +35,22 @@ const buttonVariants = cva(
 )
 
 export component Button(props: {
-  $children?: Component
-  $class?: string
+  children?: Component
+  class?: string
   $variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'
   $size?: 'default' | 'sm' | 'lg' | 'icon'
   onClick?: (e: MouseEvent) => void 
 } & VariantProps<typeof buttonVariants>) {
 	<button
         data-slot="button"
-        $class={cn(
-          buttonVariants({ variant: props.$variant, size: props.$size, class:props.$class })
+        class={cn(
+          buttonVariants({ variant: props.$variant, size: props.$size, class:props.class })
         )}
         onClick={props.onClick}
     >
-        if(props?.$children) {
-          const $children = props.$children;
-          <$children />
+        if(props?.children) {
+          const children = props.children;
+          <children />
         }
     </button>
 }

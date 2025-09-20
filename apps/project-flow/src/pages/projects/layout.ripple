@@ -22,7 +22,7 @@ export component Layout(props) {
             </div>
         </div>
         <div class="px-4">
-            <props.$children />
+            <props.children />
         </div>
     </div>
 }

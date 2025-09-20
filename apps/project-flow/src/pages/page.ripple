@@ -14,11 +14,11 @@ export component Page() {
 
 		<div class='flex items-center gap-4'>
 			<div class='relative'>
-				<Search $class='w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground' />
-				<Input $type='text' $placeholder='Search...' $value={$searchQuery} onChange={e => $searchQuery = e.target.value} $class='pl-10 w-64' />
+				<Search class='w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground' />
+				<Input $type='text' $placeholder='Search...' $value={$searchQuery} onChange={e => $searchQuery = e.target.value} class='pl-10 w-64' />
 			</div>
-			<Button $variant='ghost' $size='sm'><Bell $class='w-5 h-5' /></Button>
-			<Button $variant='ghost' $size='sm'><User $class='w-5 h-5' /></Button>
+			<Button $variant='ghost' $size='sm'><Bell class='w-5 h-5' /></Button>
+			<Button $variant='ghost' $size='sm'><User class='w-5 h-5' /></Button>
 		</div>
 	</div></div></div>
 }

@@ -1,13 +1,13 @@
 import { effect, untrack } from "ripple"
 
-export component Link({ $children, $to, $class }) {
+export component Link({ children, to, class }) {
 	async function handleClick(e) {
 		e.preventDefault();
-    if(!$to) return;
-		window.location.hash = '#' + $to;
+    if(!to) return;
+		window.location.hash = '#' + to;
 	}
 
-	<a $class={$class} $href={$to} onClick={handleClick}><$children /></a>
+	<a class={class} $href={to} onClick={handleClick}><children /></a>
 
 }
 

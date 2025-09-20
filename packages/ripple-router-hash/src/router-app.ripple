@@ -1,51 +1,112 @@
-import { effect, untrack, mount, RippleMap  } from 'ripple';
-import { getHashPath, findRoute } from "@/lib/utils";
-import { NotFound } from "@/components/not-found.ripple";
-import { Loading } from "@/components/loading.ripple";
-import routes, { routesTree}  from 'virtual:ripple-routes';
-import { Route } from "./route.ripple";
-import { RouteContext } from "./context";
+import { effect, untrack, mount, RippleMap, RippleArray, track } from 'ripple';
+import { getHashPath, findRoute } from '@/lib/utils';
+import { NotFound } from '@/components/not-found.ripple';
+import { Loading } from '@/components/loading.ripple';
+import { Route } from './route.ripple';
+import { RouteContext } from './context';
+import HashRouter from "./lib/hash-router"
 
-export function createHashRouterApp({ target}) {
-	mount(RouteApp, { target});
+export function createHashRouterApp({ target }) {
+	sessionStorage.setItem("loadedRoutes", JSON.stringify([]));
+	mount(RouterProvider, {
+		target,
+	});
 }
 
-export component RouteApp() {
-	let $currentPath = untrack(() => getHashPath());
-	let $loading = true;
-	let $newRoute = null;
-	const $routeContext = new RippleMap(["documentTitle", document.title], ["routes", routes])
+export component LoadingSpin(props){
+	<div class={`loader ${props["class"]}`}> 
+	</div>
+}
 
-	effect(() => {
-		RouteContext.set({ documentTitle: document.title, routes });
-	})
-
-	effect(() => {
-		$loading = false;
-		$newRoute = findRoute($currentPath, routes);
-	});
-
-	untrack(() => {
-		RouteContext.set({ documentTitle: document.title, routes });
-	})
-
-	effect(() => {
-		
-		const onPopState = () => {
-			$currentPath = getHashPath();
-		};
-		window.addEventListener('hashchange', onPopState);
-
-		return () => window.removeEventListener('hashchange', onPopState);
-	});
+export component RouterProvider(){
+	let node;
+	let router = track(null);
+	let routes = track(null);
+	let loading = track(true);
+	const newRoute = track(null)
+	const state =  track(null);
 	
-	if($loading){
-		<Loading />
+	effect(() => {
+		RouteContext.set({
+			routes: @routes,
+			documentTitle: document.title
+		});
+	});
+
+	effect(() => {
+		@loading = false;
+		if(!@routes || !@state) return;
+		const foundRoute = @routes.find(r => {
+			// console.log(r.path == @state.route, r.path, @state.route)
+			return r.path == @state.route
+		});
+		if(foundRoute) {
+			@newRoute = { ...foundRoute,  ...@state}
+		}
+		else {
+			@newRoute = null;
+			console.log("Route not found");
+			// sessionStorage.setItem("loadedRoutes", undefined);
+			sessionStorage.removeItem("loadedRoutes")
+		}
+		console.group("newRoute");
+		console.table(@newRoute);
+		console.groupEnd("newRoute");
+	});
+
+	function onRouteChange(newState) {
+		console.group("onRouteChange");
+		console.table(newState);
+		console.groupEnd("onRouteChange");
+		@state = newState;
 	}
-	else if (!$newRoute) {
+	
+	const appRef = n => {
+		node = n;
+		console.info('router app mounted.');
+		try {
+			import('virtual:ripple-routes').then(
+				({ default: virtualRoutes }) => {
+					virtualRoutes = virtualRoutes.map(r =>( r.path == "" ? {...r, path: "/"} : r));
+					const routesPattern = virtualRoutes.map(r =>r.path);
+					console.group("App Routes");
+					console.table(routesPattern.map(r => ({ "routes": r})), ["routes"])
+					console.groupEnd("App Routes");
+					@router = new HashRouter({
+						routes: routesPattern,
+						onRouteChange,
+					});
+					@routes = virtualRoutes // new RippleArray(...routes)
+				}
+			);
+		}
+		catch(e) {
+			console.error(e);
+			@state = null;
+		}
+		
+
+		return () => {
+			@router.destroy();
+			node = undefined;
+			router = undefined;
+			console.info('router app unmounted.');
+		};
+	};
+	
+	if (@loading) {
+		<div class={`absolute bg-gray-300/20 top-0 left-0 h-screen w-screen flex items-center justify-center select-none`}>
+			<LoadingSpin class="" />
+		</div>
+	}
+
+	if (!@newRoute) {
 		<NotFound />
-	} 
-	else {
-		<Route $route={$newRoute} />
+	} else {
+		<Route route={@newRoute} />
 	}
+
+	<div {ref appRef} class={`app-ref absolute w-0 h-0`}>
+		
+	</div>
 }

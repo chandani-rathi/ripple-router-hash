@@ -1,5 +1,8 @@
-export component Page({ params }) {
+export component Page(props) {
+
+	console.log(props)
+
 	<div class="min-h-screen bg-gradient-to-br from-gray-100 to-white p-8 flex flex-col items-center justify-center">
-		<h1 class="text-4xl font-semibold animate-bounce">{`Blog ${params.slug}`}</h1>
+		<h1 class="text-4xl font-semibold animate-bounce">{`Blog ${props.params.slug}`}</h1>
 	</div>
 }
