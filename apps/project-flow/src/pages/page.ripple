@@ -1,7 +1,7 @@
-import { Link } from '@/components/Link.ripple';
 import { Search, Bell, User } from '@/components/icons';
 import { Input } from '@/components/ui/input.ripple';
 import { Button } from '@/components/ui/button.ripple';
+import { Link } from "ripple-router-hash";
 
 export component Page() {
 	let $searchQuery = '';

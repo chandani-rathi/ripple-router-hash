@@ -40,11 +40,22 @@ export function generateRoutesTree(routes) {
 }
 
 function fileToRoutePath(file, fileBasedRoutes) {
-  let route = "/" + file.replace(/\.ripple$/, "");
+  let route = "/";
   if (fileBasedRoutes) {
-    route = route.replace(/\/index$/, "")
+    route = "/" + file.replace(/\.ripple$/, "");
+    route = route.replace(/\/index$/, "");
+    route = route.replace(/\[([^\]]+)\]/g, ":$1");
+    return route === "/index" ? "/" : route;
   }
-  route = route.replace(/\[([^\]]+)\]/g, ":$1");
+  else {
+    route = "/" +  file.replace(/\/page.ripple$/, "");
+    if(route === "/page.ripple") {
+      route = "/"
+    }
+    route = route.replace(/\[([^\]]+)\]/g, ":$1");
+    return route;
+  }
+  
   return (route === "/index" || route === "/page.ripple") ? "/" : route;
 }
 

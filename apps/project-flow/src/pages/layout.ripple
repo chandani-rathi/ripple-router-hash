@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button.ripple"
-import { useRoute } from "@/components/Link.ripple";
 import { untrack, effect } from "ripple";
 import { Search, Bell, User } from "@/components/icons";
 import { Input } from "@/components/ui/input.ripple";
+import { useRoute } from "ripple-router-hash";
 
   const menuItems = [
     { id: '', label: 'Dashboard', icon: "Home" },

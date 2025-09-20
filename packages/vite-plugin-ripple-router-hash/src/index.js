@@ -9,6 +9,7 @@ export default function rippleRoutesPlugin(options = { pagesDir : "src/pages", f
   let routeCode = "";
 
   function rebuild() {
+    console.log("fileBasedRoutes", fileBasedRoutes)
     const routes = generateRoutes({ pagesDir, fileBasedRoutes });
     const routesTree = {}//generateRoutesTree(routes);
     routeCode = `export default [${routes.join(",\n")}]; \n\n export const routesTree = ${JSON.stringify(routesTree, null, 4)}`;

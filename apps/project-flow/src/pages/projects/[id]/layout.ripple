@@ -1,4 +1,4 @@
-import { Link } from "@/components/Link.ripple";
+import { Link } from "ripple-router-hash";
 
 export component Layout(props) {
     const params = props.params

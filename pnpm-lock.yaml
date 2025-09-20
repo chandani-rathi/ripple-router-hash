@@ -67,8 +67,8 @@ importers:
         specifier: 0.2.53
         version: 0.2.53
       ripple-router-hash:
-        specifier: 0.0.3
-        version: 0.0.3
+        specifier: workspace:*
+        version: link:../../packages/ripple-router-hash
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -98,8 +98,8 @@ importers:
         specifier: 0.2.53
         version: 0.2.53
       vite-plugin-ripple-router-hash:
-        specifier: 0.0.3
-        version: 0.0.3
+        specifier: workspace:*
+        version: link:../../packages/vite-plugin-ripple-router-hash
 
   apps/simple-hash:
     dependencies:
@@ -116,8 +116,8 @@ importers:
         specifier: 0.2.53
         version: 0.2.53
       ripple-router-hash:
-        specifier: 0.0.3
-        version: 0.0.3
+        specifier: workspace:*
+        version: link:../../packages/ripple-router-hash
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -147,8 +147,8 @@ importers:
         specifier: 0.2.53
         version: 0.2.53
       vite-plugin-ripple-router-hash:
-        specifier: 0.0.3
-        version: 0.0.3
+        specifier: workspace:*
+        version: link:../../packages/vite-plugin-ripple-router-hash
 
   packages/ripple-router-hash:
     devDependencies:
@@ -1379,10 +1379,6 @@ packages:
     resolution: {integrity: sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
 
-  ripple-router-hash@0.0.3:
-    resolution: {integrity: sha512-LnQ62vzNwIbYcWX+cTkmO5s1Z2xO4pKQiFXiwlkLJMp+PJXWJVXNBLZtFzWLmz8Dx/iCejTTXZKDL45NX13Ybw==}
-    engines: {node: '>=20.0.0'}
-
   ripple@0.2.53:
     resolution: {integrity: sha512-iEhM73EH8Zg8IqrDUtmopaUgZpu2Srxi5qLnESamGc27efL6ogkuu5hH7wrUElzQZmLPq6y2odafyM8hC/IPYQ==}
 
@@ -1578,10 +1574,6 @@ packages:
     peerDependenciesMeta:
       vite:
         optional: true
-
-  vite-plugin-ripple-router-hash@0.0.3:
-    resolution: {integrity: sha512-/Izoe9S8MmUa3E5a3RwBeGxsMQLqv6z/A8ezQwdyNP0ZKGyFTA/QXYtMfuJ+6Nv2U6oKB4eFD+V/FyPSyxWIZw==}
-    engines: {node: '>=20.0.0'}
 
   vite-plugin-ripple@0.2.53:
     resolution: {integrity: sha512-E1CfMkN5Y+7wnsaOosWC8BGl1QZSb7679dqK7Sk7dzfBXhyc4BecJkSV8ld1MyG+i95LjBnLJKOQAWZfSaLzTA==}
@@ -2807,8 +2799,6 @@ snapshots:
 
   reusify@1.1.0: {}
 
-  ripple-router-hash@0.0.3: {}
-
   ripple@0.2.53:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
@@ -3030,10 +3020,6 @@ snapshots:
       - '@types/node'
       - rollup
       - supports-color
-
-  vite-plugin-ripple-router-hash@0.0.3:
-    dependencies:
-      fast-glob: 3.3.3
 
   vite-plugin-ripple@0.2.53: {}
 
