@@ -18,15 +18,15 @@
 	"devDependencies": {
 		"@tailwindcss/vite": "^4.1.13",
 		"prettier": "^3.6.2",
-		"prettier-plugin-ripple": "0.2.46",
+		"prettier-plugin-ripple": "0.2.53",
 		"tailwindcss": "^4.1.13",
 		"typescript": "^5.9.2",
 		"vite": "^7.1.6",
-		"vite-plugin-ripple": "0.2.46",
+		"vite-plugin-ripple": "0.2.53",
 		"vite-plugin-ripple-router-hash": "workspace:*"
 	},
 	"dependencies": {
-		"ripple": "0.2.46",
+		"ripple": "0.2.53",
 		"ripple-router-hash": "workspace:*"
 	}
 }
