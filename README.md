@@ -24,21 +24,21 @@ import rippleRoutesPlugin from "vite-plugin-ripple-router-hash";
 
 export default defineConfig({
 
-   plugins: [ripple(), tailwindcss(), rippleRoutesPlugin({ pagesDir: "src/pages" })],
+   plugins: [ripple(), tailwindcss(), rippleRoutesPlugin({ pagesDir: "src/pages", fileBasedRoutes: false })],
 
 }}
 
 ```
 
 ### Step 2
-Import and use the router in your Ripple app:
+Import and use the router app in your Ripple app `src\index.ts`:
 
-```ts
-import { HashRouterApp } from 'ripple-router-hash';
+```ts 
+import { createHashRouterApp } from 'ripple-router-hash';
 
-<HashRouterApp>
-   {/* Your routes/components here */}
-</HashRouterApp>
+createHashRouterApp({
+   target: document.getElementById("roo")
+})
 ```
 See the sample project in [`apps/simple-hash`](./apps/simple-hash) for a complete example, including route definitions and navigation.
 
