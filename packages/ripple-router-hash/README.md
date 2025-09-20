@@ -49,16 +49,85 @@ The [`apps/simple-hash`](./apps/simple-hash) folder contains a minimal Ripple ap
 - How to use the `Link` component for navigation
 - How to structure pages and layouts
 
-## Page Component Structure
 
-Each route in `ripple-router-hash` can be backed by a Page Component file (e.g., `page.ripple`). These files can export:
+## Routing Modes: File-based vs Folder-based
 
-- `Page`: The main component rendered for the route.
-- `Error`: (Optional) Component shown if the loader throws or rejects.
-- `Loading`: (Optional) Component shown while data is loading.
-- `loader`: (Optional) Async function to fetch data before rendering the page. Receives route params and returns data passed to the page.
+`ripple-router-hash` supports two modes for defining routes: **file-based** and **folder-based**. This gives you flexibility in how you organize your pages and layouts.
 
-### Example: Page Component with Loader
+### 1. File-based Routing
+
+Each route is defined by a single `.ripple` file. The file name (excluding extension) becomes the route path.
+
+**Example Structure:**
+
+```
+src/pages/
+   index.ripple         # route: /
+   about.ripple         # route: /about
+   dashboard.ripple     # route: /dashboard
+```
+
+Navigating to `#/about` will render `about.ripple`.
+
+### 2. Folder-based Routing
+
+Routes are defined by folders containing a `page.ripple` file. This allows for nested routes and layouts.
+
+**Example Structure:**
+
+```
+src/pages/
+   dashboard/
+      page.ripple       # route: /dashboard
+      settings/
+         page.ripple   # route: /dashboard/settings
+      users/
+         [id]/
+            page.ripple # route: /dashboard/users/:id
+```
+
+Navigating to `#/dashboard/settings` will render the corresponding `page.ripple`.
+
+### Parameterized Routes
+
+Use square brackets for dynamic segments:
+
+```
+src/pages/
+   blog/
+      [slug].ripple     # route: /blog/:slug (file-based)
+   dashboard/
+      users/
+         [id]/
+            page.ripple # route: /dashboard/users/:id (folder-based)
+```
+
+### Layouts
+
+You can define `_layout.ripple` (file-based) or `layout.ripple` (folder-based) to wrap child routes.
+
+**Example:**
+
+```
+src/pages/
+   _layout.ripple       # wraps all routes (file-based)
+   dashboard/
+      layout.ripple     # wraps dashboard child routes (folder-based)
+      page.ripple
+      settings/
+         page.ripple
+```
+
+### Page Component Structure
+
+Each route can export:
+
+- `Page`: Main component for the route
+- `Error`: (Optional) Shown if loader throws/rejects
+- `Loading`: (Optional) Shown while loading
+- `loader`: (Optional) Async function to fetch data (receives route params)
+
+**Example: Page Component with Loader**
 
 ```js
 // page.ripple
@@ -70,37 +139,18 @@ export const loader = async ({ params }) => {
 };
 
 export component Page({ data }) => <div>Project Name: {data.name}</div>;
-
 export component Error({ error }) => <div>Error: {error.message}</div>;
-
 export component Loading() => <div>Loading...</div>;
 ```
 
-## Parameterized Page Routes
+## Navigation & Link Component
 
-Routes can include parameters using square brackets, e.g. `[id]`. The value in the URL is available in the loader and page via `params`.
-
-### Example: Defining a Parameterized Route
-
-Folder structure:
-
-```
-pages/
-   projects/
-      [id]/
-         page.ripple
-```
-
-Navigating to `#/projects/123` will match the `[id]` route and pass `{ id: '123' }` to the loader and page components.
-
-### Usage in Loader and Page
+Use the `Link` component from `ripple-router-hash` for navigation:
 
 ```js
-export const loader = async ({ params }) => {
-   // params.id will be '123' for #/projects/123
-};
+import { Link } from 'ripple-router-hash';
 
-export component Page({ data, params }) => <div>ID: {params.id}</div>;
+<Link to="/dashboard/settings">Go to Settings</Link>
 ```
 
 ## Development
@@ -111,6 +161,16 @@ To develop or test changes locally:
 npm install
 npm run build
 ```
+
+## Development
+
+To develop or test changes locally:
+
+```bash
+npm install
+npm run build
+```
+
 ## Formatting & Tooling
 
 - Prettier with Ripple plugin is included for `.ripple` file formatting
