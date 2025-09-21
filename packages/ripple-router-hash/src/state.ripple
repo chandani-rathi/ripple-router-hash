@@ -1,22 +1,29 @@
 import { createContext, effect, track } from "ripple";
 import { HashRouter } from "./lib/hash-router";
 
-export const RouteContext = createContext<any>(null);
+export const RoutesContext = createContext(new Map<string, any>());
 
 export function useRouterState() {
-    console.log("event useRouterState")
-    const context = RouteContext.get();
-    const router: HashRouter = context.router;
-    const state = track(router.lastState);
+    console.log("event useRouterState");
+    const context = RoutesContext.get();
+    
+    const routes = track<HashRouter>(() => {
+        return context.get("routes")
+    });
+
+    const state = track(() => {
+        const router: HashRouter = context.get("router");
+        return router.lastState;
+    });
+
     const navigateTo = (path: string, query: { [name: string]: string} ) => {
+        const router: HashRouter = context.get("router");
         router.navigate(path, query);
     };
 
     effect(() => {
+        const router: HashRouter = context.get("router");
         router.addEvent(updateState);
-        // return () => {
-        //     router.removeEvent(updateState);
-        // }
     })
 
     
@@ -36,6 +43,6 @@ export function useRouterState() {
         // }
     })
 
-    return { state, navigateTo };
+    return { state, routes, navigateTo };
 
 }

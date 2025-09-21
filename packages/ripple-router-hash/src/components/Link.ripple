@@ -1,10 +1,12 @@
 import { effect, track } from "ripple";
-import { RouteContext } from "@/state.ripple";
+import { RoutesContext, useRouterState } from "@/state.ripple"
 import { findRoute } from "../lib/utils"
 
 export component Link(props) {
   const { children, to } = props;
-  const context = track(() => RouteContext.get(RouteContext));
+  // const { state, routes, navigateTo } = useRouterState();
+  const context = RoutesContext.get();
+
 
 	async function onClick(e) {
 		e.preventDefault();
@@ -14,9 +16,9 @@ export component Link(props) {
 
   async function onMouseOver(e) {
     if(!to) return;
-    
-    if(@context.@routes) {
-      const foundRoute = findRoute(to, context.@routes);
+    const routes = context.get("routes")
+    if(routes) {
+      const foundRoute = findRoute(to,  routes);
     
       if(foundRoute?.layouts?.length > 0) {
         foundRoute.layouts.forEach(l => l.import());

@@ -3,7 +3,7 @@ import { getHashPath, findRoute } from '@/lib/utils';
 import { NotFound } from '@/components/not-found.ripple';
 import { Loading } from '@/components/loading.ripple';
 import { Route } from './route.ripple';
-import { RouteContext } from './state.ripple';
+import { RoutesContext } from './state.ripple';
 import { HashRouter } from "./lib/hash-router"
 
 export function createHashRouterApp({ target }) {
@@ -25,14 +25,19 @@ export component RouterProvider(){
 	let loading = track(true);
 	const newRoute = track(null)
 	const state =  track(null);
-	
+	const context = RoutesContext.get();
+
 	effect(() => {
-		RouteContext.set({
-			routes: @routes,
-			router: @router,
-			state: @newRoute,
-			documentTitle: document.title
-		});
+		context.set("routes", @routes)
+	});
+	effect(() => {
+		context.set("router", @router)
+	});
+	effect(() => {
+		context.set("state", @newRoute)
+	});
+	effect(() => {
+		context.set("documentTitle", document.title)
 	});
 
 	effect(() => {
@@ -53,13 +58,13 @@ export component RouterProvider(){
 		}
 		console.group("newRoute");
 		console.table(@newRoute);
-		console.groupEnd("newRoute");
+		console.groupEnd();
 	});
 
 	function onRouteChange(newState) {
 		console.group("onRouteChange");
 		console.table(newState);
-		console.groupEnd("onRouteChange");
+		console.groupEnd();
 		@state = newState;
 	}
 	
@@ -73,7 +78,7 @@ export component RouterProvider(){
 					const routesPattern = virtualRoutes.map(r =>r.path);
 					console.group("App Routes");
 					console.table(routesPattern.map(r => ({ "routes": r})), ["routes"])
-					console.groupEnd("App Routes");
+					console.groupEnd();
 					@router = new HashRouter({
 						routes: routesPattern,
 						onRouteChange,

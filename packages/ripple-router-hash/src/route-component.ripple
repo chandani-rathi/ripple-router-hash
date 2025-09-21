@@ -3,7 +3,7 @@ import { getHashPath, arrayToTree, findRoute } from "@/lib/utils";
 import { NotFound } from "@/components/not-found.ripple";
 import { Loading } from "@/components/loading.ripple";
 import { Error } from "@/components/error.ripple";
-import { RouteContext } from "@/state.ripple";
+import { RoutesContext } from "@/state.ripple";
 
 
 function getComponent(module) {
@@ -21,8 +21,8 @@ function updateMetadata(metadata, context){
 	if(metadata) {
 		document.title = metadata.title
 	}
-	else if(context?.documentTitle){
-		document.title = context.documentTitle
+	else if(context.has("documentTitle")){
+		document.title = context.get("documentTitle")
 	}
 }
 
@@ -53,7 +53,7 @@ export component RouteComponent({ id, route, routeProps, routeChildren  }){
 	let routeComponent = track(null);
 	let $childComponentLoaded = null;
 
-	let context = RouteContext.get(RouteContext);
+	const context = RoutesContext.get();
 
 	const routeData = track({...(routeProps || {})});
 
