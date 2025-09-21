@@ -19,7 +19,7 @@
 		"build" : "pnpm --filter ripple-router-hash run build",
 		"patch:hash": "cd packages/ripple-router-hash && npm run patch",
 		"patch:plugin": "cd packages/vite-plugin-ripple-router-hash && npm run patch",
-		"patch": "pnpm version patch -r --filter \"./packages/*\"",
+		"patch": "npx npm-run-all2 --parallel patch:**",
 		"publish:hash": "cd packages/ripple-router-hash && npm run publish",
 		"publish:plugin": "cd packages/vite-plugin-ripple-router-hash && npm run publish",
 		"publish": "pnpm -r publish --filter \"./packages/*\""
