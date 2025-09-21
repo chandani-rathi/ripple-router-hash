@@ -2,14 +2,15 @@ import { Button } from '@/components/ui/button.ripple';
 import { Filter, Plus } from '@/components/icons';
 import animation from "@/lib/animation";
 import { track, effect } from "ripple";
-import { RouteContext, useRouterState } from "ripple-router-hash"
+import { useRouter } from "ripple-router-hash"
 
 export component Layout(props) {
+    const currentRoute = track(() => {
+       const { state } = useRouter();
+       return state.path
+    });
+    console.log(@currentRoute, "currentRoute")
 
-    // const { state } = useRouterState()
-    // effect(() => {
-    //     console.log("project layout content change", @state);
-    // })
     effect((e) => {
         console.log("mounted", e)
         return (params) => {

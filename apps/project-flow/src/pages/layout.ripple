@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button.ripple"
-import { untrack, effect } from "ripple";
+import { untrack, effect, track } from "ripple";
 import { Search, Bell, User } from "@/components/icons";
 import { Input } from "@/components/ui/input.ripple";
-import { useRoute } from "ripple-router-hash";
+import { useRouter } from "ripple-router-hash";
 
   const menuItems = [
     { id: '', label: 'Dashboard', icon: "Home" },
@@ -15,10 +15,11 @@ import { useRoute } from "ripple-router-hash";
   ];
 
 export component Layout(props) {
-    let  { $currentRoute, navigateTo } = useRoute();
-    let $menu = menuItems[0];
+    const currentRoute = track("")
+    let  { navigateTo } = useRouter();
+    let menu = track(() => menuItems[0]);
     effect(() => {
-        $menu = menuItems.find(menu => $currentRoute === `/${menu.id}`)
+        @menu = menuItems.find(menu => @currentRoute === `/${menu.id}`)
     })
 
     <div class='h-screen overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50'>
@@ -32,15 +33,15 @@ export component Layout(props) {
                  <nav class="px-4 flex-1 overflow-auto flex items-center flex-row md:flex-col">
                     const navigate = (menu) => {
                         navigateTo(`/${menu.id}`)
-                        $menu = menu;
+                        @menu = menu;
                     }
                     for(let menu of menuItems) {
-                        const $isSelected = $currentRoute === `/${menu.id}` || $currentRoute.startsWith(`/${menu.id}/`)
+                        const isSelected = @currentRoute === `/${menu.id}` || @currentRoute.startsWith(`/${menu.id}/`)
                         <Button
-                            $variant={$isSelected ? "default" : "ghost"}
+                            $variant={isSelected ? "default" : "ghost"}
                             onClick={() => navigate(menu)}
                             class={`w-auto md:w-full justify-start gap-3 mb-2 ${
-                                $isSelected ? 'bg-gradient-to-r from-blue-500 to-purple-600' : ''
+                                isSelected ? 'bg-gradient-to-r from-blue-500 to-purple-600' : ''
                             }`}
                         >
                             <span>{menu.label}</span>
