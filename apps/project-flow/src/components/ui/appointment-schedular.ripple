@@ -1,4 +1,4 @@
-import { RippleArray, RippleMap, track } from "ripple";
+import { TrackedArray , TrackedMap , track } from "ripple";
 
 const DAYS = [
     "",
@@ -77,10 +77,10 @@ const TIME_CLASSES = {
 
 
 export component AppointMentSchedular({ appointments }){
-    const days = new RippleArray(...DAYS);
-    const times = new RippleArray(...TIME_SERIES);
-    const time_classes = new RippleMap();
-    const appointmentData = new RippleArray(...appointments.map(a => ({...a, lines: new RippleArray(...a.text)})));
+    const days = new TrackedArray (...DAYS);
+    const times = new TrackedArray (...TIME_SERIES);
+    const time_classes = new TrackedMap ();
+    const appointmentData = new TrackedArray (...appointments.map(a => ({...a, lines: new TrackedArray (...a.text)})));
     times.forEach(
         (t, i) => {
             time_classes.set(t, TIME_CLASSES[`${i+1}`])
@@ -113,7 +113,7 @@ export component AppointMentSchedular({ appointments }){
     }
 
     const selectionStarted = track(false);
-    const newAppointment = new RippleMap();
+    const newAppointment = new TrackedMap ();
 
     function handleMouseDown(day, time){
         console.log("starting selection", day, time);
@@ -190,9 +190,9 @@ export component AppointMentSchedular({ appointments }){
                         for(let appointment of appointmentData) {
                             <div class={`${DAYS_CLASSES[appointment.startDay]} ${time_classes.get(appointment.startTime)} ${getTimeBlock(appointment.startTime, appointment.endTime)} m-1 flex flex-col gap-1 rounded-lg border${appointment.classes}  p-2 overflow-auto`}>
                                 //TODO: ripple next array error code fix
-                                <span class="text-xs font-mono">{appointment.lines[0]}</span>
-                                <span class="text-sm font-semibold">{appointment.lines[1]}</span>
-                                <span class="text-sm">{appointment.lines[2]}</span>
+                                for(let line of appointment.lines) {
+                                    <span class="text-sm">{line}</span>
+                                }
                             </div>
                         }
 

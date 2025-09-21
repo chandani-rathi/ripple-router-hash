@@ -1,4 +1,4 @@
-import { RippleArray } from "ripple"
+import { TrackedArray  } from "ripple"
 import { Link } from 'ripple-router-hash';
 const SIDEBAR = [
 	{
@@ -47,7 +47,7 @@ const SIDEBAR = [
 const classes = ["absolute bg-gray-300/20 top-0 left-0 h-screen w-screen flex items-center justify-center select-none"]
 
 export component Page({ children }) {
-	const sideNav = new RippleArray(...SIDEBAR)
+	const sideNav = new TrackedArray (...SIDEBAR)
 
 	const divRef = () => {
 		console.log("mounted");

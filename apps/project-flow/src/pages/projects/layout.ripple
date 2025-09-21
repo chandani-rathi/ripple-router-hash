@@ -1,9 +1,24 @@
 import { Button } from '@/components/ui/button.ripple';
 import { Filter, Plus } from '@/components/icons';
 import animation from "@/lib/animation";
+import { track, effect } from "ripple";
+import { RouteContext, useRouterState } from "ripple-router-hash"
 
 export component Layout(props) {
-	<div  {ref animation.slideIn()} class="flex-1 flex flex-col">
+
+    // const { state } = useRouterState()
+    // effect(() => {
+    //     console.log("project layout content change", @state);
+    // })
+    effect((e) => {
+        console.log("mounted", e)
+        return (params) => {
+            console.log("unmounted", params)
+        }
+    })
+    
+
+	<div  {ref animation.slideInSlideOut()} class="flex-1 flex flex-col">
         <div class='border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-6 py-4'>
             <div class='flex justify-between items-center '>
                 <div>

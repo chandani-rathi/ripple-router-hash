@@ -1,4 +1,4 @@
-import { RippleArray, RippleMap } from "ripple";
+import { TrackedArray , TrackedMap  } from "ripple";
 import { AppointMentSchedular } from "@/components/ui/appointment-schedular.ripple"
 
 const AppointmentsData= [
