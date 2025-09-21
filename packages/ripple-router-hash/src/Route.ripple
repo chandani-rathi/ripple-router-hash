@@ -1,4 +1,4 @@
-import { effect, track, RippleArray } from 'ripple';
+import { effect, track, TrackedArray  } from 'ripple';
 import { arrayToTree } from "@/lib/utils";
 import { NotFound } from "@/components/not-found.ripple";
 import { Loading } from "@/components/loading.ripple";
@@ -14,32 +14,32 @@ export component Route({ route }: {
 	const isRouteNotFound = @track(false);
 	const isRouteLoading = @track(true);
 	const newTree = @track(null);
-	const tree = new RippleArray();
+	const tree = new TrackedArray ();
 
 	effect(() => {
 		if(!@newTree) return;
 
-		console.log("loading new route component", @newTree);
+		//console.log("loading new route component", @newTree);
 		const loadedRoutes = JSON.parse(sessionStorage.getItem("loadedRoutes") || "[]")
-		console.log(loadedRoutes);
+		//console.log(loadedRoutes);
 
 		const visitNode = (node, previousNode, currentTree) => {
-			console.log("node", node);
-			console.log("previousNode", previousNode);
+			//console.log("node", node);
+			//console.log("previousNode", previousNode);
 			if(previousNode && previousNode.id != node.id) {
-				console.log("removing previous node and adding new node")
+				//console.log("removing previous node and adding new node")
 				const newNode = { ... node}
-				newNode.children = new RippleArray();
+				newNode.children = new TrackedArray ();
 				currentTree.splice(0, 1, newNode);
 			}
 			else if(previousNode && previousNode.id == node.id) {
-				console.log("both previous node and new node is same")
+				//console.log("both previous node and new node is same")
 				//tree.splice(i, 1, node);
 			}
 			else {
-				console.log("adding new node");
+				//console.log("adding new node");
 				const newNode = { ... node}
-				newNode.children = new RippleArray();
+				newNode.children = new TrackedArray ();
 				currentTree.push(newNode);
 			}
 
@@ -51,7 +51,7 @@ export component Route({ route }: {
 			
 		}
 
-		console.log(JSON.stringify(tree));
+		//console.log(JSON.stringify(tree));
 		let depth = 0;
 		const getDepth = (node) => {
 			if(!node || !node[0]) 
@@ -82,7 +82,7 @@ export component Route({ route }: {
 			getDepth(selectedNode.children)
 		}
 
-		console.log("depth", previousRoutesDepth, newRoutesDepth)
+		//console.log("depth", previousRoutesDepth, newRoutesDepth)
 		
 		if(previousRoutesDepth <= newRoutesDepth) {
 			const node = @newTree[0]
@@ -91,13 +91,13 @@ export component Route({ route }: {
 		}
 		else {
 			removeNodeFromDepth(tree, newRoutesDepth);
-			console.log("modified tree", JSON.stringify(tree, null ,2 ));
+			//console.log("modified tree", JSON.stringify(tree, null ,2 ));
 			const node = @newTree[0]
 			const previousNode = loadedRoutes ? loadedRoutes[0] : null;
 			visitNode(node, previousNode, tree);
 		}
 		
-		console.log(JSON.stringify(tree, null ,2 ))
+		//console.log(JSON.stringify(tree, null ,2 ))
 		sessionStorage.setItem("loadedRoutes", JSON.stringify(@newTree));
 	})
 

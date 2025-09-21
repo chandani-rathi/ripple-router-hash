@@ -1,5 +1,5 @@
 import { effect, track } from "ripple";
-import { RouteContext } from "../context";
+import { RouteContext } from "@/state.ripple";
 import { findRoute } from "../lib/utils"
 
 export component Link(props) {

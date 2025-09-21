@@ -7,15 +7,29 @@ export interface HashRouterType {
     middlewares?: any[]
 }
 
-export default class HashRouter {
+export interface HashState {
+
+}
+
+export declare function onRouteChange(
+    { path, route, params, query } : { 
+        path: string, 
+        route: string, 
+        params: { [name: string]: string }, 
+        query: { [name: string]: string }
+    }) : void
+
+export class HashRouter {
 
     routes: { pattern: any; regex: RegExp; keys: any[]; }[];
-    onRouteChange: ({ path, route, params, query }) => void;
+    onRouteChange: typeof onRouteChange;
     rootPage: string;
     doubleBackExit: boolean;
     scrollPositions: Map<any, any>;
     middlewares: any[];
     lastBackPress: number;
+    onRouteChangeEvents: typeof onRouteChange[];
+    lastState: { path: string, route: string, params: { [name: string]: string }, query: { [name: string]: string } }
 
     constructor({
         routes = [],
@@ -32,6 +46,8 @@ export default class HashRouter {
         this.middlewares = middlewares;
         this.scrollPositions = new Map();
         this.lastBackPress = 0;
+        this.onRouteChangeEvents = [];
+        this.lastState = { path: "/", route: "/", params: {}, query: {}}
 
         this.handlePopState = this.handlePopState.bind(this);
         window.addEventListener("popstate", this.handlePopState);
@@ -60,8 +76,11 @@ export default class HashRouter {
 
     parseHash() {
         const hash = location.hash.replace(/^#/, "");
-        const [path, search] = hash.split("?");
+        let [path, search] = hash.split("?");
         const query = Object.fromEntries(new URLSearchParams(search || ""));
+        if (path == "") {
+            path = "/"
+        }
         return { path: path || this.rootPage, query };
     }
 
@@ -127,6 +146,9 @@ export default class HashRouter {
         if (typeof this.onRouteChange === "function") {
             this.onRouteChange({ path, route, params, query });
         }
+        this.lastState = { path, route, params, query };
+        this.triggerEvents();
+
     }
 
     handlePopState(event) {
@@ -151,7 +173,26 @@ export default class HashRouter {
         }
     }
 
+    triggerEvents() {
+        this.onRouteChangeEvents.forEach(
+            event => {
+                event({ ...this.lastState });
+            }
+        )
+    }
+
+    addEvent(event) {
+        if (typeof event != "function") return;
+        this.onRouteChangeEvents.push(event)
+    }
+
+    removeEvent(event) {
+        const index = this.onRouteChangeEvents.findIndex(event);
+        this.onRouteChangeEvents.splice(index, 1)
+    }
+
     destroy() {
+        this.onRouteChangeEvents.splice(0, this.onRouteChangeEvents.length)
         window.removeEventListener("popstate", this.handlePopState);
     }
 }

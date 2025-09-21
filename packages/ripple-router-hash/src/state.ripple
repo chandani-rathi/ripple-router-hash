@@ -1,0 +1,39 @@
+import { createContext, effect, track } from "ripple";
+import { HashRouter } from "./lib/hash-router";
+
+export const RouteContext = createContext<any>(null);
+
+export function useRouterState() {
+    console.log("event useRouterState")
+    const context = RouteContext.get();
+    const router: HashRouter = context.router;
+    const state = track(router.lastState);
+    const navigateTo = () => {};
+
+    effect(() => {
+        router.addEvent(updateState);
+        // return () => {
+        //     router.removeEvent(updateState);
+        // }
+    })
+
+    
+    function onStateChange(newState){
+        console.log("newState", newState)
+    }
+
+    function updateState(newState){
+        @state = newState;
+    }
+
+    effect(() => {
+        console.log("mounted hash state");
+        onStateChange(@state);
+        // return () => {
+        //     console.log("un mounted hash state")
+        // }
+    })
+
+    return { state, navigateTo };
+
+}

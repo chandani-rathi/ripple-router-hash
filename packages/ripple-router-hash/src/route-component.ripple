@@ -1,9 +1,9 @@
-import { effect, RippleArray, track } from 'ripple';
+import { effect, TrackedArray , track } from 'ripple';
 import { getHashPath, arrayToTree, findRoute } from "@/lib/utils";
 import { NotFound } from "@/components/not-found.ripple";
 import { Loading } from "@/components/loading.ripple";
 import { Error } from "@/components/error.ripple";
-import { RouteContext } from "./context";
+import { RouteContext } from "@/state.ripple";
 
 
 function getComponent(module) {

@@ -1,10 +1,10 @@
-import { effect, untrack, mount, RippleMap, RippleArray, track } from 'ripple';
+import { effect, untrack, mount, TrackedMap , TrackedArray , track } from 'ripple';
 import { getHashPath, findRoute } from '@/lib/utils';
 import { NotFound } from '@/components/not-found.ripple';
 import { Loading } from '@/components/loading.ripple';
 import { Route } from './route.ripple';
-import { RouteContext } from './context';
-import HashRouter from "./lib/hash-router"
+import { RouteContext } from './state.ripple';
+import { HashRouter } from "./lib/hash-router"
 
 export function createHashRouterApp({ target }) {
 	sessionStorage.setItem("loadedRoutes", JSON.stringify([]));
@@ -29,6 +29,8 @@ export component RouterProvider(){
 	effect(() => {
 		RouteContext.set({
 			routes: @routes,
+			router: @router,
+			state: @newRoute,
 			documentTitle: document.title
 		});
 	});
@@ -76,7 +78,7 @@ export component RouterProvider(){
 						routes: routesPattern,
 						onRouteChange,
 					});
-					@routes = virtualRoutes // new RippleArray(...routes)
+					@routes = virtualRoutes // new TrackedArray (...routes)
 				}
 			);
 		}

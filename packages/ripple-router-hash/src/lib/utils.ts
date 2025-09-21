@@ -1,4 +1,4 @@
-import { RippleArray } from 'ripple';
+import { TrackedArray  } from 'ripple';
 
 export function getHashPath() {
   return window.location.hash.replace(/^#/, "") || "/";
@@ -21,7 +21,7 @@ export function arrayToTree(arr) {
 export function updateTree(newTree, oldTree){
 	if (!oldTree) return newTree;
 
-	if(!newTree) return new RippleArray();
+	if(!newTree) return new TrackedArray ();
 
 	if(oldTree.length == 0 && newTree.length == 0) {
 
