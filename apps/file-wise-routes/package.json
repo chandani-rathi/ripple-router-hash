@@ -1,6 +1,7 @@
 {
 	"name": "file-wise-routes",
 	"version": "0.0.5",
+	"private": true,
 	"description": "",
 	"type": "module",
 	"engines": {

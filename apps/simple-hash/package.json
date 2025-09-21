@@ -1,6 +1,7 @@
 {
 	"name": "simple-hash",
 	"version": "0.0.5",
+	"private": true,
 	"type": "module",
 	"engines": {
 		"node": ">=20.0.0"

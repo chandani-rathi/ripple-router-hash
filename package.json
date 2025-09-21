@@ -1,6 +1,7 @@
 {
 	"name": "ripple-router-hash-main",
 	"version": "0.0.5",
+	"private": true,
 	"description": "",
 	"type": "module",
 	"scripts": {
@@ -18,10 +19,10 @@
 		"build" : "pnpm --filter ripple-router-hash run build",
 		"patch:hash": "cd packages/ripple-router-hash && npm run patch",
 		"patch:plugin": "cd packages/vite-plugin-ripple-router-hash && npm run patch",
-		"patch": "npx npm-run-all2 --parallel patch:**",
+		"patch": "pnpm -r publish --filter \"./packages/*\"",
 		"publish:hash": "cd packages/ripple-router-hash && npm run publish",
 		"publish:plugin": "cd packages/vite-plugin-ripple-router-hash && npm run publish",
-		"publish": "npx npm-run-all2 --parallel publish:**"
+		"publish": "pnpm -r publish --filter \"./packages/*\""
 	},
 	"license": "MIT",
 	"devDependencies": {
