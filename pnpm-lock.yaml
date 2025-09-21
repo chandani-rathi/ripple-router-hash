@@ -12,8 +12,8 @@ importers:
         specifier: ^27.0.0
         version: 27.0.0(postcss@8.5.6)
       vite-plugin-ripple:
-        specifier: ^0.2.53
-        version: 0.2.53
+        specifier: ^0.2.59
+        version: 0.2.59
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(jiti@2.5.1)(jsdom@27.0.0(postcss@8.5.6))(lightningcss@1.30.1)
@@ -21,8 +21,8 @@ importers:
   apps/file-wise-routes:
     dependencies:
       ripple:
-        specifier: 0.2.53
-        version: 0.2.53
+        specifier: 0.2.59
+        version: 0.2.59
       ripple-router-hash:
         specifier: workspace:*
         version: link:../../packages/ripple-router-hash
@@ -34,8 +34,8 @@ importers:
         specifier: ^3.6.2
         version: 3.6.2
       prettier-plugin-ripple:
-        specifier: 0.2.53
-        version: 0.2.53(prettier@3.6.2)
+        specifier: 0.2.59
+        version: 0.2.59(prettier@3.6.2)
       tailwindcss:
         specifier: ^4.1.13
         version: 4.1.13
@@ -46,8 +46,8 @@ importers:
         specifier: ^7.1.6
         version: 7.1.6(jiti@2.5.1)(lightningcss@1.30.1)
       vite-plugin-ripple:
-        specifier: 0.2.53
-        version: 0.2.53
+        specifier: 0.2.59
+        version: 0.2.59
       vite-plugin-ripple-router-hash:
         specifier: workspace:*
         version: link:../../packages/vite-plugin-ripple-router-hash
@@ -67,8 +67,8 @@ importers:
         specifier: ^12.23.16
         version: 12.23.16(react@19.1.1)
       ripple:
-        specifier: 0.2.53
-        version: 0.2.53
+        specifier: 0.2.59
+        version: 0.2.59
       ripple-router-hash:
         specifier: workspace:*
         version: link:../../packages/ripple-router-hash
@@ -83,8 +83,8 @@ importers:
         specifier: ^3.6.2
         version: 3.6.2
       prettier-plugin-ripple:
-        specifier: 0.2.53
-        version: 0.2.53(prettier@3.6.2)
+        specifier: 0.2.59
+        version: 0.2.59(prettier@3.6.2)
       tailwindcss:
         specifier: ^4.1.13
         version: 4.1.13
@@ -98,8 +98,8 @@ importers:
         specifier: ^7.1.6
         version: 7.1.6(jiti@2.5.1)(lightningcss@1.30.1)
       vite-plugin-ripple:
-        specifier: 0.2.53
-        version: 0.2.53
+        specifier: 0.2.59
+        version: 0.2.59
       vite-plugin-ripple-router-hash:
         specifier: workspace:*
         version: link:../../packages/vite-plugin-ripple-router-hash
@@ -116,8 +116,8 @@ importers:
         specifier: ^0.544.0
         version: 0.544.0(react@19.1.1)
       ripple:
-        specifier: 0.2.53
-        version: 0.2.53
+        specifier: 0.2.59
+        version: 0.2.59
       ripple-router-hash:
         specifier: workspace:*
         version: link:../../packages/ripple-router-hash
@@ -132,8 +132,8 @@ importers:
         specifier: ^3.6.2
         version: 3.6.2
       prettier-plugin-ripple:
-        specifier: 0.2.53
-        version: 0.2.53(prettier@3.6.2)
+        specifier: 0.2.59
+        version: 0.2.59(prettier@3.6.2)
       tailwindcss:
         specifier: ^4.1.13
         version: 4.1.13
@@ -147,8 +147,8 @@ importers:
         specifier: ^7.1.6
         version: 7.1.6(jiti@2.5.1)(lightningcss@1.30.1)
       vite-plugin-ripple:
-        specifier: 0.2.53
-        version: 0.2.53
+        specifier: 0.2.59
+        version: 0.2.59
       vite-plugin-ripple-router-hash:
         specifier: workspace:*
         version: link:../../packages/vite-plugin-ripple-router-hash
@@ -162,11 +162,11 @@ importers:
         specifier: ^3.6.2
         version: 3.6.2
       prettier-plugin-ripple:
-        specifier: 0.2.53
-        version: 0.2.53(prettier@3.6.2)
+        specifier: 0.2.59
+        version: 0.2.59(prettier@3.6.2)
       ripple:
-        specifier: 0.2.53
-        version: 0.2.53
+        specifier: 0.2.59
+        version: 0.2.59
       typescript:
         specifier: ^5.9.2
         version: 5.9.2
@@ -177,8 +177,8 @@ importers:
         specifier: ^4.5.4
         version: 4.5.4(rollup@4.50.2)(typescript@5.9.2)(vite@7.1.6(jiti@2.5.1)(lightningcss@1.30.1))
       vite-plugin-ripple:
-        specifier: 0.2.53
-        version: 0.2.53
+        specifier: 0.2.59
+        version: 0.2.59
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(jiti@2.5.1)(jsdom@27.0.0(postcss@8.5.6))(lightningcss@1.30.1)
@@ -1379,8 +1379,8 @@ packages:
     resolution: {integrity: sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==}
     engines: {node: ^10 || ^12 || >=14}
 
-  prettier-plugin-ripple@0.2.53:
-    resolution: {integrity: sha512-ojmYBKJnBzU8JjvdeITI98Kg7DykIJDzsUOI67KtCAsRLcaXbU8BukNmFTjMqXjIer7z5LKFHgjz1qiXXVjZUw==}
+  prettier-plugin-ripple@0.2.59:
+    resolution: {integrity: sha512-AVI0EeQZScvj5yuMQgTzf8UEVYTyQL8juuzUQ6idsAJVjSpefIocYS/XUGZkCpxWthSYOMGfAoDbOiNAfXLgng==}
     peerDependencies:
       prettier: '>=2.0.0'
 
@@ -1416,8 +1416,8 @@ packages:
     resolution: {integrity: sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
 
-  ripple@0.2.53:
-    resolution: {integrity: sha512-iEhM73EH8Zg8IqrDUtmopaUgZpu2Srxi5qLnESamGc27efL6ogkuu5hH7wrUElzQZmLPq6y2odafyM8hC/IPYQ==}
+  ripple@0.2.59:
+    resolution: {integrity: sha512-Q6+sWtVgb3PIbgfUQGg0WgU6x1YAcyV8z3wTELGUB3kLA6NH5IDFF39CuNvDexyklGkfJPbYebZnqoBbv8liZw==}
 
   rollup@4.50.2:
     resolution: {integrity: sha512-BgLRGy7tNS9H66aIMASq1qSYbAAJV6Z6WR4QYTvj5FgF15rZ/ympT1uixHXwzbZUBDbkvqUI1KR0fH1FhMaQ9w==}
@@ -1615,8 +1615,8 @@ packages:
       vite:
         optional: true
 
-  vite-plugin-ripple@0.2.53:
-    resolution: {integrity: sha512-E1CfMkN5Y+7wnsaOosWC8BGl1QZSb7679dqK7Sk7dzfBXhyc4BecJkSV8ld1MyG+i95LjBnLJKOQAWZfSaLzTA==}
+  vite-plugin-ripple@0.2.59:
+    resolution: {integrity: sha512-5YrPeDQdj4X3cXR+H1IRMfVJ6NGozlsn8dp5rOHScA1QGtT9rYf6DL6VQ0JpgmVTb2PyT+ipkm9UBsUMLuiwVA==}
 
   vite@7.1.6:
     resolution: {integrity: sha512-SRYIB8t/isTwNn8vMB3MR6E+EQZM/WG1aKmmIUCfDXfVvKfc20ZpamngWHKzAmmu9ppsgxsg4b2I7c90JZudIQ==}
@@ -2836,7 +2836,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  prettier-plugin-ripple@0.2.53(prettier@3.6.2):
+  prettier-plugin-ripple@0.2.59(prettier@3.6.2):
     dependencies:
       prettier: 3.6.2
 
@@ -2860,7 +2860,7 @@ snapshots:
 
   reusify@1.1.0: {}
 
-  ripple@0.2.53:
+  ripple@0.2.59:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
       acorn: 8.15.0
@@ -3084,7 +3084,7 @@ snapshots:
       - rollup
       - supports-color
 
-  vite-plugin-ripple@0.2.53: {}
+  vite-plugin-ripple@0.2.59: {}
 
   vite@7.1.6(jiti@2.5.1)(lightningcss@1.30.1):
     dependencies:
