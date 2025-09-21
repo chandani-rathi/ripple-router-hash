@@ -8,7 +8,9 @@ export function useRouterState() {
     const context = RouteContext.get();
     const router: HashRouter = context.router;
     const state = track(router.lastState);
-    const navigateTo = () => {};
+    const navigateTo = (path: string, query: { [name: string]: string} ) => {
+        router.navigate(path, query);
+    };
 
     effect(() => {
         router.addEvent(updateState);
