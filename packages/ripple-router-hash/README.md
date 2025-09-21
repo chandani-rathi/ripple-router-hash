@@ -24,21 +24,21 @@ import rippleRoutesPlugin from "vite-plugin-ripple-router-hash";
 
 export default defineConfig({
 
-   plugins: [ripple(), tailwindcss(), rippleRoutesPlugin({ pagesDir: "src/pages" })],
+   plugins: [ripple(), tailwindcss(), rippleRoutesPlugin({ pagesDir: "src/pages", fileBasedRoutes: false })],
 
 }}
 
 ```
 
 ### Step 2
-Import and use the router in your Ripple app:
+Import and use the router app in your Ripple app `src\index.ts`:
 
-```ts
-import { HashRouterApp } from 'ripple-router-hash';
+```ts 
+import { createHashRouterApp } from 'ripple-router-hash';
 
-<HashRouterApp>
-   {/* Your routes/components here */}
-</HashRouterApp>
+createHashRouterApp({
+   target: document.getElementById("root")
+})
 ```
 See the sample project in [`apps/simple-hash`](./apps/simple-hash) for a complete example, including route definitions and navigation.
 
@@ -143,9 +143,10 @@ export component Error({ error }) => <div>Error: {error.message}</div>;
 export component Loading() => <div>Loading...</div>;
 ```
 
+
 ## Navigation & Link Component
 
-Use the `Link` component from `ripple-router-hash` for navigation:
+Use the `Link` component from `ripple-router-hash` for navigation and preloading routes. It supports `to`, `query`, and event handlers:
 
 ```js
 import { Link } from 'ripple-router-hash';
@@ -153,6 +154,58 @@ import { Link } from 'ripple-router-hash';
 <Link to="/dashboard/settings">Go to Settings</Link>
 ```
 
+You can also use `onMouseOver` to preload route components and layouts for faster navigation.
+
+### useRouter and useRouterState
+
+`useRouter` and `useRouterState` are hooks for accessing router state and navigation programmatically:
+
+```js
+import { useRouter, useRouterState } from 'ripple-router-hash';
+
+const { route, navigateTo } = useRouter();
+// route: current route state
+// navigateTo: function to navigate to a route
+
+const { state, routes, navigateTo } = useRouterState();
+// state: current router state
+// routes: all available routes
+// navigateTo: function to navigate
+```
+
+### RoutesContext
+
+`RoutesContext` is a Ripple context that provides access to router, routes, and other navigation-related data. It is used internally and can be accessed for advanced use cases:
+
+```js
+import { RoutesContext } from 'ripple-router-hash';
+const context = RoutesContext.get();
+const router = context.get('router');
+const routes = context.get('routes');
+```
+
+### RouteComponent
+
+`RouteComponent` is used internally to handle route loading, error, and layout logic. It automatically manages loading and error states, and passes loader data to your page components.
+
+**Error and Loading Handling:**
+
+If your page exports `Error` or `Loading` components, these will be shown automatically during errors or loading states.
+
+**Example:**
+
+```js
+export component Error({ error }) => <div>Error: {error.message}</div>;
+export component Loading() => <div>Loading...</div>;
+```
+
+## Advanced Usage
+
+- Preload routes/layouts on hover using Link's `onMouseOver`
+- Access router state/context for custom navigation logic
+- Use RouteComponent for custom error/loading handling
+
+
 ## Development
 
 To develop or test changes locally:
@@ -170,6 +223,7 @@ To develop or test changes locally:
 npm install
 npm run build
 ```
+
 
 ## Formatting & Tooling
 
