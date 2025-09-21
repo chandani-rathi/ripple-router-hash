@@ -1,4 +1,4 @@
-import { effect, untrack, mount, TrackedMap , TrackedArray , track } from 'ripple';
+import { effect, mount, track } from 'ripple';
 import { getHashPath, findRoute } from '@/lib/utils';
 import { NotFound } from '@/components/not-found.ripple';
 import { Loading } from '@/components/loading.ripple';

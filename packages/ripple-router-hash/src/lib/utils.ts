@@ -1,9 +1,7 @@
-import { TrackedArray  } from 'ripple';
 
 export function getHashPath() {
   return window.location.hash.replace(/^#/, "") || "/";
 }
-
 
 export function arrayToTree(arr) {
   if (!arr.length) return new Array();
@@ -16,33 +14,6 @@ export function arrayToTree(arr) {
   }
 
   return new Array(tree);
-}
-
-export function updateTree(newTree, oldTree){
-	if (!oldTree) return newTree;
-
-	if(!newTree) return new TrackedArray ();
-
-	if(oldTree.length == 0 && newTree.length == 0) {
-
-	}
-	else if(oldTree.length == 0 && newTree.length > 0) {
-		oldTree.push(newTree[0])
-	}
-	else if(oldTree.length > 0 && newTree.length == 0) {
-		oldTree.splice(0, 1)
-	}
-	else if(newTree.length > 0 && oldTree.length > 0){
-		if(newTree[0].id != oldTree[0].id) {
-			oldTree.splice(0, 1)
-			oldTree.push(newTree[0])
-		}
-		else {
-			updateTree(newTree[0].children, oldTree[0].children)
-		}
-	}
-
-	return oldTree;
 }
 
 export function findRoute(currentPath, routes) {

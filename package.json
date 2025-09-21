@@ -15,7 +15,7 @@
 		"test:hash": "pnpm --filter ripple-router-hash run test",
 		"test:vite-plugin": "pnpm --filter vite-plugin-ripple-router-hash run test",
 		"test": "npx npm-run-all2 --parallel test:**",
-		"build" : "npm run build -w ripple-router-hash",
+		"build" : "pnpm --filter ripple-router-hash run build",
 		"patch:hash": "cd packages/ripple-router-hash && npm run patch",
 		"patch:plugin": "cd packages/vite-plugin-ripple-router-hash && npm run patch",
 		"patch": "npx npm-run-all2 --parallel patch:**",

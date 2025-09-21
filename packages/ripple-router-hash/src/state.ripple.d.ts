@@ -1,6 +1,12 @@
 import { Context } from "ripple";
 import { HashState } from "./lib/hash-router";
 
-export declare function useRouterState(): { state: HashState, navigateTo: (path: string, query: {[name:string]: string}) => void }
+export interface UseRouterStateResult {
+	state: HashState;
+	routes: any;
+	navigateTo: (path: string, query?: { [name: string]: string }) => void;
+}
 
-export const RouteContext: Context<any>
+export declare function useRouterState(): UseRouterStateResult;
+
+export const RouteContext: Context<any>;

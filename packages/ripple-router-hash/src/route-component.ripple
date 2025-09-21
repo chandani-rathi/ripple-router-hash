@@ -1,4 +1,4 @@
-import { effect, TrackedArray , track } from 'ripple';
+import { effect, track } from 'ripple';
 import { getHashPath, arrayToTree, findRoute } from "@/lib/utils";
 import { NotFound } from "@/components/not-found.ripple";
 import { Loading } from "@/components/loading.ripple";
