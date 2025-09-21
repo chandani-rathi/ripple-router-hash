@@ -39,13 +39,28 @@ export component Link(props) {
 
 export function useRouter() {
   const context = RoutesContext.get();
+  
+  const route = track(() => {
+      const router: HashRouter = context.get("router");
+      return router.lastState;
+  });
 
   function navigateTo(to, query) {
     const router = context.get("router");
     router.navigate(to, query)
   }
 
+  function updateState(newState){
+        @route = newState;
+  }
+  
+  effect(() => {
+      const router: HashRouter = context.get("router");
+      router.addEvent(updateState);
+   })
+
   return {
+    route,
     navigateTo
   }
 }

@@ -3,13 +3,11 @@ import { Filter, Plus } from '@/components/icons';
 import animation from "@/lib/animation";
 import { track, effect } from "ripple";
 import { useRouter } from "ripple-router-hash"
+import { projects as PROJECTS } from "./projects";
 
 export component Layout(props) {
-    const currentRoute = track(() => {
-       const { state } = useRouter();
-       return state.path
-    });
-    console.log(@currentRoute, "currentRoute")
+    console.log("props", props)
+    const { route } = useRouter();
 
     effect((e) => {
         console.log("mounted", e)
@@ -17,13 +15,20 @@ export component Layout(props) {
             console.log("unmounted", params)
         }
     })
-    
+
+    function getProjectName(){
+        if(!@route?.params?.id) return "Projects";
+        const projectId = @route?.params?.id;
+
+        const project = PROJECTS.find(p => p.id == projectId);
+        return project?.name ?? "Not found" ;
+    }
 
 	<div  {ref animation.slideInSlideOut()} class="flex-1 flex flex-col">
         <div class='border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-6 py-4'>
             <div class='flex justify-between items-center '>
                 <div>
-                    <h2 class='text-2xl font-bold'>{'Projects'}</h2>
+                    <h2 class='text-2xl font-bold'>{getProjectName()}</h2>
                     <p class='text-muted-foreground'>{'Manage and track your project progress'}</p>
                 </div>
                 <div class='flex gap-2'>

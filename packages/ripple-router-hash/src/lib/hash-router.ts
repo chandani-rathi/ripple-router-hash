@@ -147,7 +147,9 @@ export class HashRouter {
             this.onRouteChange({ path, route, params, query });
         }
         this.lastState = { path, route, params, query };
-        this.triggerEvents();
+        setTimeout(() => {
+            this.triggerEvents();
+        },)
 
     }
 
