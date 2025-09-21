@@ -12,6 +12,9 @@
       "require": "./dist/ripple-router-hash.cjs.js"
     }
   },
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=20.0.0"
   },

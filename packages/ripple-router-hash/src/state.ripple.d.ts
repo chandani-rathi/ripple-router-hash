@@ -1,5 +1,5 @@
 import { Context } from "ripple";
-import { HashState } from "./lib/hash-router";
+import { HashState } from "@/lib/hash-router";
 
 export interface UseRouterStateResult {
 	state: HashState;

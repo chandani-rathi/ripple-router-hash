@@ -1,4 +1,4 @@
-import { Link } from "ripple-router-hash";
+import { Link } from "@/components/link.ripple";
 
 export component NotFound() {
 	<div class='min-h-screen bg-gradient-to-br from-gray-100 to-white p-8 flex flex-col items-center justify-center'>

@@ -2,9 +2,9 @@ import { effect, mount, track } from 'ripple';
 import { getHashPath, findRoute } from '@/lib/utils';
 import { NotFound } from '@/components/not-found.ripple';
 import { Loading } from '@/components/loading.ripple';
-import { Route } from './route.ripple';
-import { RoutesContext } from './state.ripple';
-import { HashRouter } from "./lib/hash-router"
+import { Route } from '@/route.ripple';
+import { RoutesContext } from '@/state.ripple';
+import { HashRouter } from "@/lib/hash-router"
 
 export function createHashRouterApp({ target }) {
 	sessionStorage.setItem("loadedRoutes", JSON.stringify([]));

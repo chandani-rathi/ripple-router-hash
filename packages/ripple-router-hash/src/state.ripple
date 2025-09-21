@@ -1,5 +1,5 @@
 import { createContext, effect, track } from "ripple";
-import { HashRouter } from "./lib/hash-router";
+import { HashRouter } from "@/lib/hash-router";
 
 export const RoutesContext = createContext(new Map<string, any>());
 

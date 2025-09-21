@@ -2,7 +2,7 @@ import { effect, track, TrackedArray  } from 'ripple';
 import { arrayToTree } from "@/lib/utils";
 import { NotFound } from "@/components/not-found.ripple";
 import { Loading } from "@/components/loading.ripple";
-import { RouteComponent } from "./route-component.ripple"
+import { RouteComponent } from "@/route-component.ripple"
 
 export component Route({ route }: {
 	route?: { 

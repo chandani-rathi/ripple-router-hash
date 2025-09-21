@@ -1,6 +1,6 @@
 import { effect, track } from "ripple";
 import { RoutesContext, useRouterState } from "@/state.ripple"
-import { findRoute } from "../lib/utils"
+import { findRoute } from "@/lib/utils"
 
 export component Link(props) {
   const { children, to, query } = props;

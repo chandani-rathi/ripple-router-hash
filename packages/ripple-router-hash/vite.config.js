@@ -19,7 +19,7 @@ export default defineConfig({
 	},
 	build: {
 		target: 'esnext',
-		manifest: true,
+		manifest: false,
 		minify: false,
 		lib: {
 			entry: 'src/index.ts',
