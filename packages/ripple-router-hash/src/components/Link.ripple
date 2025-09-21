@@ -3,7 +3,7 @@ import { RoutesContext, useRouterState } from "@/state.ripple"
 import { findRoute } from "../lib/utils"
 
 export component Link(props) {
-  const { children, to } = props;
+  const { children, to, query } = props;
   // const { state, routes, navigateTo } = useRouterState();
   const context = RoutesContext.get();
 
@@ -11,7 +11,9 @@ export component Link(props) {
 	async function onClick(e) {
 		e.preventDefault();
     if(!to) return;
-		window.location.hash = '#' + to;
+		// window.location.hash = '#' + to;
+    const router = context.get("router");
+    router.navigate(to, query)
 	}
 
   async function onMouseOver(e) {
@@ -35,17 +37,15 @@ export component Link(props) {
 
 }
 
+export function useRouter() {
+  const context = RoutesContext.get();
 
-function getHashPath() {
-  return window.location.hash.replace(/^#/, "") || "/";
-}
+  function navigateTo(to, query) {
+    const router = context.get("router");
+    router.navigate(to, query)
+  }
 
-export function useRoute() {
-  let $currentRoute = getHashPath()
   return {
-    $currentRoute,
-    navigateTo : (to) => {
-      window.location.hash = '#' + to;
-    }
+    navigateTo
   }
 }

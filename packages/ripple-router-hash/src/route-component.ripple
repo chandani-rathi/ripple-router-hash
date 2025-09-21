@@ -30,10 +30,10 @@ export function isPromiseLike(value) {
   return value && typeof value.then === "function";
 }
 
-export component DynamicDataComponent({ $component, data, children}: { $component, data?, children?}){
+export component DynamicDataComponent({ element, data, children}: { element, data?, children?}){
 	let $dynamicComponent = (__anchor, props, __block) => {
 		console.log("loading dynamic data", @data)
-		$component(__anchor, {...props, ...(@data || {})}, __block)
+		element(__anchor, {...props, ...(@data || {})}, __block)
 	};
 
 	<$dynamicComponent>
@@ -96,14 +96,14 @@ export component RouteComponent({ id, route, routeProps, routeChildren  }){
 				})
 				.then(({mainComponent, loaderData}) => {
 						if(!mainComponent && id != "not-found") {
-							console.warn("warning: node named Page or default export found in page ", $component.props)
+							console.warn("warning: node named Page or default export found in page ", routeProps)
 						}
 						@loading = false;
 						@routeData = {...(routeProps || {}), loaderData};
 						@routeComponent = mainComponent;
 						if(id.startsWith("layout:")) {
 							$childComponentLoaded = setTimeout(() => {
-								console.warn("warning: make sure to user children in layout component ", $component.id)
+								console.warn("warning: make sure to user children in layout component ", id)
 							}, 1000)
 						}
 					})
@@ -123,14 +123,14 @@ export component RouteComponent({ id, route, routeProps, routeChildren  }){
 		if(@loading) {
 			if($error) {
 				if($errorComponent) {
-					<DynamicDataComponent $component={$errorComponent} data={routeData}/>
+					<DynamicDataComponent element={$errorComponent} data={routeData}/>
 				}
 				else {
 					<Error />
 				}
 			}
 			else if($loadingComponent) {
-				<DynamicDataComponent $component={$loadingComponent} data={routeData}/>
+				<DynamicDataComponent element={$loadingComponent} data={routeData}/>
 			}
 			else {
 				<Loading />
@@ -140,18 +140,9 @@ export component RouteComponent({ id, route, routeProps, routeChildren  }){
 			<NotFound />
 		}
 		else if(@routeComponent){
-			<DynamicDataComponent $component={@routeComponent} data={routeData}>
+			<DynamicDataComponent element={@routeComponent} data={routeData}>
 				component children() {
 					clearTimeout($childComponentLoaded)
-					// if(routeChildren.length == 1) {
-					// 	<RouteComponent $component={routeChildren[0]} />
-					// }
-					// if(routeChildren.length == 2) {
-					// 	<RouteComponent $component={routeChildren[1]} />
-					// }
-					// if(routeChildren.length == 3) {
-					// 	<RouteComponent $component={routeChildren[2]} />
-					// }
 					for(let child of routeChildren) {
 						<RouteComponent id={child.id} route={child.route} routeProps={child.props} routeChildren={child.children} />
 					}
@@ -165,7 +156,7 @@ export component RouteComponent({ id, route, routeProps, routeChildren  }){
 		console.error(e)
 		if($errorComponent) {
 			try {
-				<DynamicDataComponent $component={$errorComponent} data={routeData}/>
+				<DynamicDataComponent element={$errorComponent} data={routeData}/>
 			}
 			catch(e) { 
 				console.error("Error occurred while loading route. Error Code: 4", routeProps);

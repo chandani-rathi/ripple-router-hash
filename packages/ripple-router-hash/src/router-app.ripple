@@ -20,17 +20,20 @@ export component LoadingSpin(props){
 
 export component RouterProvider(){
 	let node;
-	let router = track(null);
+	const context = RoutesContext.get();
+	let router = track(() => {
+		context.get("routes")
+	});
 	let routes = track(null);
 	let loading = track(true);
 	const newRoute = track(null)
 	const state =  track(null);
-	const context = RoutesContext.get();
 
 	effect(() => {
 		context.set("routes", @routes)
 	});
 	effect(() => {
+		console.log("router added to context")
 		context.set("router", @router)
 	});
 	effect(() => {
