@@ -1,6 +1,31 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`routes > generate routes tree on routes 1`] = `
+exports[`file based routes > generate routes on files 1`] = `
+[
+  "{
+        path: "",
+        component: () => import("/src/pages/index.ripple"),
+        layouts: [{id: "", import: () => import("/src/pages/_layout.ripple") }],
+      }",
+  "{
+        path: "/about",
+        component: () => import("/src/pages/about.ripple"),
+        layouts: [{id: "", import: () => import("/src/pages/_layout.ripple") }],
+      }",
+  "{
+        path: "/project/:id",
+        component: () => import("/src/pages/project/[id].ripple"),
+        layouts: [{id: "", import: () => import("/src/pages/_layout.ripple") }, {id: "project", import: () => import("/src/pages/project/_layout.ripple") }],
+      }",
+  "{
+        path: "/project",
+        component: () => import("/src/pages/project/index.ripple"),
+        layouts: [{id: "", import: () => import("/src/pages/_layout.ripple") }, {id: "project", import: () => import("/src/pages/project/_layout.ripple") }],
+      }",
+]
+`;
+
+exports[`file based routes > generate routes tree on routes 1`] = `
 {
   "children": [
     {
@@ -53,4 +78,24 @@ exports[`routes > generate routes tree on routes 1`] = `
   "import": null,
   "path": "",
 }
+`;
+
+exports[`folder based routes > generate routes on files 1`] = `
+[
+  "{
+        path: "/",
+        component: () => import("/src/pages/page.ripple"),
+        layouts: [{id: "", import: () => import("/src/pages/layout.ripple") }],
+      }",
+  "{
+        path: "/project",
+        component: () => import("/src/pages/project/page.ripple"),
+        layouts: [{id: "", import: () => import("/src/pages/layout.ripple") }, {id: "project", import: () => import("/src/pages/project/layout.ripple") }],
+      }",
+  "{
+        path: "/project/:id",
+        component: () => import("/src/pages/project/[id]/page.ripple"),
+        layouts: [{id: "", import: () => import("/src/pages/layout.ripple") }, {id: "project", import: () => import("/src/pages/project/layout.ripple") }, {id: "project/[id]", import: () => import("/src/pages/project/[id]/layout.ripple") }],
+      }",
+]
 `;
